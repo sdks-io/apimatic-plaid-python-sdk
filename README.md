@@ -1,161 +1,139 @@
+# The Plaid API SDK
 
-# Getting Started with The Plaid API
+[![Built with APIMatic][apimatic-badge]][apimatic-url] [![License: MIT][license-badge]][license-url] [![Python 3.10+][python-badge]][python-url]
 
-## Introduction
+The The Plaid API SDK for Python provides access to the The Plaid API REST APIs from Python applications.
+
+> [!TIP]
+> **Looking for a specific signature, model, enum, or error type?** This SDK ships a generated
+> **[SDK map](sdk-map.md)** -- a lookup index of the SDK's entire Python surface. Consult it before
+> scanning the source tree; details under [SDK map](#sdk-map).
 
 The Plaid REST API. Please see https://plaid.com/docs/api for more details.
 
-## Install the Package
+---
 
-The package is compatible with Python versions `3.7+`.
-Install the package from PyPi using the following pip command:
+## Installation
+
+To install the Python SDK from PyPI, with whichever package manager your project uses:
 
 ```bash
-pip install apimatic-plaid-sdk==0.0.1
+pip install apimatic-plaid-sdk
 ```
 
-You can also view the package at:
-https://pypi.python.org/pypi/apimatic-plaid-sdk/0.0.1
+```bash
+uv add apimatic-plaid-sdk
+```
 
-## Initialize the API Client
+```bash
+poetry add apimatic-plaid-sdk
+```
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/client.md)
+To install from the SDK source instead, give the tool a path containing a slash — a bare folder name is looked up on PyPI, and resolves to whatever project holds that name there:
 
-The following parameters are configurable for the API Client:
+```bash
+pip install <path-to-sdk>
+```
 
-| Parameter | Type | Description |
-|  --- | --- | --- |
-| environment | [`Environment`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/README.md#environments) | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| http_client_instance | `Union[Session, HttpClientProvider]` | The Http Client passed from the sdk user for making requests |
-| override_http_client_configuration | `bool` | The value which determines to override properties of the passed Http Client from the sdk user |
-| http_call_back | `HttpCallBack` | The callback value that is invoked before and after an HTTP call is made to an endpoint |
-| timeout | `float` | The value to use for connection timeout. <br> **Default: 60** |
-| max_retries | `int` | The number of times to retry an endpoint call if it fails. <br> **Default: 0** |
-| backoff_factor | `float` | A backoff factor to apply between attempts after the second try. <br> **Default: 2** |
-| retry_statuses | `Array of int` | The http statuses on which retry is to be done. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
-| retry_methods | `Array of string` | The http methods on which retry is to be done. <br> **Default: ["GET", "PUT"]** |
-| proxy_settings | [`ProxySettings`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/proxy-settings.md) | Optional proxy configuration to route HTTP requests through a proxy server. |
-| logging_configuration | [`LoggingConfiguration`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/logging-configuration.md) | The SDK logging configuration for API calls |
-| plaid_client_id_credentials | [`PlaidClientIdCredentials`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature.md) | The credential object for Custom Header Signature |
-| plaid_secret_credentials | [`PlaidSecretCredentials`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature-1.md) | The credential object for Custom Header Signature |
-| plaid_version_credentials | [`PlaidVersionCredentials`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature-2.md) | The credential object for Custom Header Signature |
+---
 
-The API client can be initialized as follows:
+## Quick Start
 
-### Code-Based Client Initialization
+### Synchronous client
+
+Construct `ThePlaidApiClient` with keyword arguments, and call `close()` when you are done. Every argument is optional; the full list is in the [SDK map](sdk-map.md).
 
 ```python
-import logging
+from the_plaid_api import ThePlaidApiClient
 
-from plaid.configuration import Environment
-from plaid.http.auth.plaid_client_id import PlaidClientIdCredentials
-from plaid.http.auth.plaid_secret import PlaidSecretCredentials
-from plaid.http.auth.plaid_version import PlaidVersionCredentials
-from plaid.logging.configuration.api_logging_configuration import LoggingConfiguration
-from plaid.logging.configuration.api_logging_configuration import RequestLoggingConfiguration
-from plaid.logging.configuration.api_logging_configuration import ResponseLoggingConfiguration
-from plaid.plaid_client import PlaidClient
-
-client = PlaidClient(
-    plaid_client_id_credentials=PlaidClientIdCredentials(
-        plaid_client_id='PLAID-CLIENT-ID'
-    ),
-    plaid_secret_credentials=PlaidSecretCredentials(
-        plaid_secret='PLAID-SECRET'
-    ),
-    plaid_version_credentials=PlaidVersionCredentials(
-        plaid_version='Plaid-Version'
-    ),
-    environment=Environment.PRODUCTION,
-    logging_configuration=LoggingConfiguration(
-        log_level=logging.INFO,
-        request_logging_config=RequestLoggingConfiguration(
-            log_body=True
-        ),
-        response_logging_config=ResponseLoggingConfiguration(
-            log_headers=True
-        )
-    )
+client = ThePlaidApiClient(
+    plaid_client_id="YOUR_API_KEY", plaid_secret="YOUR_API_KEY", plaid_version="YOUR_API_KEY", environment="production"
 )
+
+# TODO: call endpoints here -- see api-reference.md
+
+client.close()
 ```
 
-### Environment-Based Client Initialization
+Alternatively, scope it -- `with ThePlaidApiClient(...) as client:` closes the pool on exit; see [Best Practices](#best-practices).
+
+`Client` is exported as an alias of `ThePlaidApiClient`, so `from the_plaid_api import Client` also works.
+
+The SDK accepts every model-typed input in two interchangeable spellings, both type-checked: the typed model, or a plain dict with the same keys -- the `OrDict` and `Model | ModelDict` unions in the [SDK map](sdk-map.md). Pick whichever suits the call site: the dict form needs no import, while the model form adds a keyword-checked constructor and editor completion.
+
+### Asynchronous client
+
+`AsyncThePlaidApiClient` mirrors `ThePlaidApiClient` with **identical method names**, and every endpoint method is a coroutine. It takes the same arguments, with some differences -- for example, the transport argument is `custom_async_http_client`.
 
 ```python
-from plaid.plaid_client import PlaidClient
+from asyncio import run
 
-# Specify the path to your .env file if it’s located outside the project’s root directory.
-client = PlaidClient.from_environment(dotenv_path='/path/to/.env')
+from the_plaid_api import AsyncThePlaidApiClient
+
+
+async def main() -> None:
+    client = AsyncThePlaidApiClient(
+        plaid_client_id="YOUR_API_KEY",
+        plaid_secret="YOUR_API_KEY",
+        plaid_version="YOUR_API_KEY",
+        environment="production",
+    )
+    # TODO: call endpoints here, awaiting each -- see api-reference.md
+    await client.aclose()
+
+
+run(main())
 ```
 
-See the [Environment-Based Client Initialization](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/environment-based-client-initialization.md) section for details.
+Alternatively, scope it -- `async with AsyncThePlaidApiClient(...) as client:` closes the pool on exit. Only the async spelling is `aclose`, matching httpx; see [Best Practices](#best-practices).
 
-## Environments
+`AsyncClient` is the exported alias. Each client accepts **only** its own transport argument; passing the other's is a `TypeError` at runtime and an error under mypy.
 
-The SDK can be configured to use a different environment for making API calls. Available environments are:
+---
 
-### Fields
+## Usage
 
-| Name | Description |
-|  --- | --- |
-| PRODUCTION | **Default** Production |
-| ENVIRONMENT2 | Development |
-| ENVIRONMENT3 | Sandbox |
+Two generated references cover the SDK; each answers a different question:
 
-## Authorization
+| Reference | For |
+| --- | --- |
+| **[API Reference](api-reference.md)** | Usage guidance for a single **parsed** operation: `client.<group>.<operation>(...)` returns the typed payload and raises `ApiError` on any non-2xx, with `.error` the typed error body, or `RawError` for a status the operation does not document. |
+| **[Raw API Reference](raw-api-reference.md)** | The same for the **raw** variant: `client.<group>.with_raw_response.<operation>(...)` returns `ApiResult[T, E]` and never raises for an API error. |
 
-This API uses the following authentication schemes.
+Both API references carry every one of the 93 operations, with a sync and an async sample and a parameter table each.
 
-* [`PLAID-CLIENT-ID (Custom Header Signature)`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature.md)
-* [`PLAID-SECRET (Custom Header Signature)`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature-1.md)
-* [`Plaid-Version (Custom Header Signature)`](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/auth/custom-header-signature-2.md)
+## SDK map
 
-## List of APIs
+This SDK ships a generated **SDK map** -- [`sdk-map.md`](sdk-map.md) -- a deterministic, lookup-oriented table of contents of the SDK's Python surface, generated by APIMatic alongside this SDK.
 
-* [Item](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/item.md)
-* [Asset Report](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/asset-report.md)
-* [Processor](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/processor.md)
-* [Payment Initiation](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/payment-initiation.md)
-* [Sandbox](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/sandbox.md)
-* [Investments](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/investments.md)
-* [Institutions](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/institutions.md)
-* [Application](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/application.md)
-* [Accounts](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/accounts.md)
-* [Identity](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/identity.md)
-* [Liabilities](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/liabilities.md)
-* [Auth](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/auth.md)
-* [Transactions](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/transactions.md)
-* [Categories](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/categories.md)
-* [Webhook Verification Key](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/webhook-verification-key.md)
-* [Deposit Switch](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/deposit-switch.md)
-* [Link](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/link.md)
-* [Transfer](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/transfer.md)
-* [Bank Transfer](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/bank-transfer.md)
-* [Employers](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/employers.md)
-* [Income](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/income.md)
-* [Signal](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/controllers/signal.md)
+Consult the map before scanning or grepping the source: it answers call-level contract questions by lookup, and for anything it does not carry -- model shapes, enum values, an endpoint's route or behavioural prose -- it names the one source file to read. How to read the map itself, including the SDK-wide defaults its rows rely on, is stated at the top of [`sdk-map.md`](sdk-map.md).
 
-## SDK Infrastructure
+## Best Practices
 
-### Configuration
+> [!TIP]
+> Use a **single `ThePlaidApiClient` instance** for the lifetime of your application and reuse it across
+> all requests. Each instance owns its own connection pool, so an instance per request forfeits
+> connection reuse and leaks pools that are never closed.
 
-* [ProxySettings](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/proxy-settings.md)
-* [Environment-Based Client Initialization](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/environment-based-client-initialization.md)
-* [AbstractLogger](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/abstract-logger.md)
-* [LoggingConfiguration](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/logging-configuration.md)
-* [RequestLoggingConfiguration](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/request-logging-configuration.md)
-* [ResponseLoggingConfiguration](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/response-logging-configuration.md)
+Match the disposal to the client's lifetime: an application-lifetime client is closed once at shutdown with `close()` / `aclose()`; where the lifetime fits a block, `with ThePlaidApiClient() as client:` / `async with AsyncThePlaidApiClient() as client:` releases it automatically. Both are idempotent, but a closed client is not reusable: the next call raises. The client closes **whatever transport it holds**, including one you supplied via `custom_http_client` / `custom_async_http_client`; if you intend to reuse your own transport across clients, don't hand its lifetime to a `with` block.
 
-### HTTP
+**Retries are on by default**: a failed idempotent request — a retryable status or no response at all — is sent again up to three times before the call gives up. Pass `retry_options=0` to turn it off, for instance in a test that stubs an error response; the policy and its defaults are under **Retries** in the SDK map.
 
-* [HttpResponse](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/http-response.md)
-* [HttpRequest](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/http-request.md)
+## License
 
-### Utilities
+This SDK is distributed under the [MIT License][license-url].
 
-* [ApiResponse](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/api-response.md)
-* [ApiHelper](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/api-helper.md)
-* [HttpDateTime](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/http-date-time.md)
-* [RFC3339DateTime](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/rfc3339-date-time.md)
-* [UnixDateTime](https://www.github.com/sdks-io/apimatic-plaid-python-sdk/tree/0.0.1/doc/unix-date-time.md)
+---
 
+## Support
+
+Refer to the [API reference](api-reference.md) for detailed information on available operations with code samples.
+
+---
+
+[license-url]: LICENSE
+[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
+[apimatic-url]: https://www.apimatic.io
+[apimatic-badge]: https://www.apimatic.io/hubfs/Built-with-APIMatic-badge.svg
+[python-url]: https://www.python.org/downloads/
+[python-badge]: https://img.shields.io/badge/python-3.10%2B-blue.svg

@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from typing_extensions import TypedDict
+
+from ..core import SdkBaseModel
+
+
+class AddressDataNullable(SdkBaseModel):
+    city: str
+    """The full city name"""
+
+    region: str | None
+    """The region or state Example: ``"NC"``"""
+
+    street: str
+    """The full street address Example: ``"564 Main Street, APT 15"``"""
+
+    postal_code: str | None
+    """The postal code"""
+
+    country: str | None
+    """The ISO 3166-1 alpha-2 country code"""
+
+
+class AddressDataNullableDict(TypedDict):
+    city: str
+    region: str | None
+    street: str
+    postal_code: str | None
+    country: str | None

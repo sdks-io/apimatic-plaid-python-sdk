@@ -1,0 +1,18 @@
+from __future__ import annotations
+
+from typing_extensions import NotRequired, TypedDict
+
+from ..core import UNSET, Optional, SdkBaseModel
+from .earnings_total import EarningsTotal, EarningsTotalDict
+
+
+class Earnings(SdkBaseModel):
+    """An object representing both a breakdown of earnings on a paystub and the total earnings."""
+
+    subtotals: Optional[list[EarningsTotal]] = UNSET
+    totals: Optional[list[EarningsTotal]] = UNSET
+
+
+class EarningsDict(TypedDict):
+    subtotals: NotRequired[list[EarningsTotalDict]]
+    totals: NotRequired[list[EarningsTotalDict]]

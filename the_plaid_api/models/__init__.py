@@ -1,0 +1,1544 @@
+from . import enums
+from .account import Account, AccountDict
+from .account_access import AccountAccess, AccountAccessDict
+from .account_assets import AccountAssets, AccountAssetsDict
+from .account_balance import AccountBalance, AccountBalanceDict
+from .account_filter import AccountFilter, AccountFilterDict
+from .account_filters_response import AccountFiltersResponse, AccountFiltersResponseDict
+from .account_identity import AccountIdentity, AccountIdentityDict
+from .accounts_balance_get_request import AccountsBalanceGetRequest, AccountsBalanceGetRequestDict
+from .accounts_balance_get_request_options import AccountsBalanceGetRequestOptions, AccountsBalanceGetRequestOptionsDict
+from .accounts_get_request import AccountsGetRequest, AccountsGetRequestDict
+from .accounts_get_request_options import AccountsGetRequestOptions, AccountsGetRequestOptionsDict
+from .accounts_get_response import AccountsGetResponse, AccountsGetResponseDict
+from .address import Address, AddressDict
+from .address1 import Address1, Address1Dict
+from .address2 import Address2, Address2Dict
+from .address_data import AddressData, AddressDataDict
+from .address_data1 import AddressData1, AddressData1Dict
+from .address_data_nullable import AddressDataNullable, AddressDataNullableDict
+from .address_nullable import AddressNullable, AddressNullableDict
+from .application import Application, ApplicationDict
+from .application_get_request import ApplicationGetRequest, ApplicationGetRequestDict
+from .application_get_response import ApplicationGetResponse, ApplicationGetResponseDict
+from .apr import Apr, AprDict
+from .asset_report import AssetReport, AssetReportDict
+from .asset_report_audit_copy_create_request import (
+    AssetReportAuditCopyCreateRequest,
+    AssetReportAuditCopyCreateRequestDict,
+)
+from .asset_report_audit_copy_create_response import (
+    AssetReportAuditCopyCreateResponse,
+    AssetReportAuditCopyCreateResponseDict,
+)
+from .asset_report_audit_copy_get_request import AssetReportAuditCopyGetRequest, AssetReportAuditCopyGetRequestDict
+from .asset_report_audit_copy_remove_request import (
+    AssetReportAuditCopyRemoveRequest,
+    AssetReportAuditCopyRemoveRequestDict,
+)
+from .asset_report_audit_copy_remove_response import (
+    AssetReportAuditCopyRemoveResponse,
+    AssetReportAuditCopyRemoveResponseDict,
+)
+from .asset_report_create_request import AssetReportCreateRequest, AssetReportCreateRequestDict
+from .asset_report_create_request_options import AssetReportCreateRequestOptions, AssetReportCreateRequestOptionsDict
+from .asset_report_create_response import AssetReportCreateResponse, AssetReportCreateResponseDict
+from .asset_report_filter_request import AssetReportFilterRequest, AssetReportFilterRequestDict
+from .asset_report_filter_response import AssetReportFilterResponse, AssetReportFilterResponseDict
+from .asset_report_get_request import AssetReportGetRequest, AssetReportGetRequestDict
+from .asset_report_get_response import AssetReportGetResponse, AssetReportGetResponseDict
+from .asset_report_item import AssetReportItem, AssetReportItemDict
+from .asset_report_pdfget_request import AssetReportPdfgetRequest, AssetReportPdfgetRequestDict
+from .asset_report_refresh_request import AssetReportRefreshRequest, AssetReportRefreshRequestDict
+from .asset_report_refresh_request_options import AssetReportRefreshRequestOptions, AssetReportRefreshRequestOptionsDict
+from .asset_report_refresh_response import AssetReportRefreshResponse, AssetReportRefreshResponseDict
+from .asset_report_remove_request import AssetReportRemoveRequest, AssetReportRemoveRequestDict
+from .asset_report_remove_response import AssetReportRemoveResponse, AssetReportRemoveResponseDict
+from .asset_report_transaction import AssetReportTransaction, AssetReportTransactionDict
+from .asset_report_user import AssetReportUser, AssetReportUserDict
+from .assets_error_webhook import AssetsErrorWebhook, AssetsErrorWebhookDict
+from .assets_product_ready_webhook import AssetsProductReadyWebhook, AssetsProductReadyWebhookDict
+from .auth_get_numbers import AuthGetNumbers, AuthGetNumbersDict
+from .auth_get_request import AuthGetRequest, AuthGetRequestDict
+from .auth_get_request_options import AuthGetRequestOptions, AuthGetRequestOptionsDict
+from .auth_get_response import AuthGetResponse, AuthGetResponseDict
+from .auth_metadata import AuthMetadata, AuthMetadataDict
+from .auth_supported_methods import AuthSupportedMethods, AuthSupportedMethodsDict
+from .automatically_verified_webhook import AutomaticallyVerifiedWebhook, AutomaticallyVerifiedWebhookDict
+from .bank_initiated_return_risk import BankInitiatedReturnRisk, BankInitiatedReturnRiskDict
+from .bank_transfer import BankTransfer, BankTransferDict
+from .bank_transfer_balance import BankTransferBalance, BankTransferBalanceDict
+from .bank_transfer_balance_get_request import BankTransferBalanceGetRequest, BankTransferBalanceGetRequestDict
+from .bank_transfer_balance_get_response import BankTransferBalanceGetResponse, BankTransferBalanceGetResponseDict
+from .bank_transfer_cancel_request import BankTransferCancelRequest, BankTransferCancelRequestDict
+from .bank_transfer_cancel_response import BankTransferCancelResponse, BankTransferCancelResponseDict
+from .bank_transfer_create_request import BankTransferCreateRequest, BankTransferCreateRequestDict
+from .bank_transfer_create_response import BankTransferCreateResponse, BankTransferCreateResponseDict
+from .bank_transfer_event import BankTransferEvent, BankTransferEventDict
+from .bank_transfer_event_list_request import BankTransferEventListRequest, BankTransferEventListRequestDict
+from .bank_transfer_event_list_response import BankTransferEventListResponse, BankTransferEventListResponseDict
+from .bank_transfer_event_sync_request import BankTransferEventSyncRequest, BankTransferEventSyncRequestDict
+from .bank_transfer_event_sync_response import BankTransferEventSyncResponse, BankTransferEventSyncResponseDict
+from .bank_transfer_failure import BankTransferFailure, BankTransferFailureDict
+from .bank_transfer_get_request import BankTransferGetRequest, BankTransferGetRequestDict
+from .bank_transfer_get_response import BankTransferGetResponse, BankTransferGetResponseDict
+from .bank_transfer_list_request import BankTransferListRequest, BankTransferListRequestDict
+from .bank_transfer_list_response import BankTransferListResponse, BankTransferListResponseDict
+from .bank_transfer_migrate_account_request import (
+    BankTransferMigrateAccountRequest,
+    BankTransferMigrateAccountRequestDict,
+)
+from .bank_transfer_migrate_account_response import (
+    BankTransferMigrateAccountResponse,
+    BankTransferMigrateAccountResponseDict,
+)
+from .bank_transfer_receiver_details import BankTransferReceiverDetails, BankTransferReceiverDetailsDict
+from .bank_transfer_sweep import BankTransferSweep, BankTransferSweepDict
+from .bank_transfer_sweep_account import BankTransferSweepAccount, BankTransferSweepAccountDict
+from .bank_transfer_sweep_get_request import BankTransferSweepGetRequest, BankTransferSweepGetRequestDict
+from .bank_transfer_sweep_get_response import BankTransferSweepGetResponse, BankTransferSweepGetResponseDict
+from .bank_transfer_sweep_list_request import BankTransferSweepListRequest, BankTransferSweepListRequestDict
+from .bank_transfer_sweep_list_response import BankTransferSweepListResponse, BankTransferSweepListResponseDict
+from .bank_transfer_user import BankTransferUser, BankTransferUserDict
+from .bank_transfers_events_update_webhook import BankTransfersEventsUpdateWebhook, BankTransfersEventsUpdateWebhookDict
+from .buy_type import BuyType, BuyTypeDict
+from .cash_type import CashType, CashTypeDict
+from .categories_get_response import CategoriesGetResponse, CategoriesGetResponseDict
+from .category import Category, CategoryDict
+from .cause import Cause, CauseDict
+from .connected_application import ConnectedApplication, ConnectedApplicationDict
+from .credit import Credit, CreditDict
+from .credit_account import CreditAccount, CreditAccountDict
+from .credit_card_liability import CreditCardLiability, CreditCardLiabilityDict
+from .credit_filter import CreditFilter, CreditFilterDict
+from .customer_initiated_return_risk import CustomerInitiatedReturnRisk, CustomerInitiatedReturnRiskDict
+from .deductions import Deductions, DeductionsDict
+from .default_update_webhook import DefaultUpdateWebhook, DefaultUpdateWebhookDict
+from .deposit_switch_address_data import DepositSwitchAddressData, DepositSwitchAddressDataDict
+from .deposit_switch_alt_create_request import DepositSwitchAltCreateRequest, DepositSwitchAltCreateRequestDict
+from .deposit_switch_alt_create_response import DepositSwitchAltCreateResponse, DepositSwitchAltCreateResponseDict
+from .deposit_switch_create_request import DepositSwitchCreateRequest, DepositSwitchCreateRequestDict
+from .deposit_switch_create_request_options import (
+    DepositSwitchCreateRequestOptions,
+    DepositSwitchCreateRequestOptionsDict,
+)
+from .deposit_switch_create_response import DepositSwitchCreateResponse, DepositSwitchCreateResponseDict
+from .deposit_switch_get_request import DepositSwitchGetRequest, DepositSwitchGetRequestDict
+from .deposit_switch_get_response import DepositSwitchGetResponse, DepositSwitchGetResponseDict
+from .deposit_switch_state_update_webhook import DepositSwitchStateUpdateWebhook, DepositSwitchStateUpdateWebhookDict
+from .deposit_switch_target_account import DepositSwitchTargetAccount, DepositSwitchTargetAccountDict
+from .deposit_switch_target_user import DepositSwitchTargetUser, DepositSwitchTargetUserDict
+from .deposit_switch_token_create_request import DepositSwitchTokenCreateRequest, DepositSwitchTokenCreateRequestDict
+from .deposit_switch_token_create_response import DepositSwitchTokenCreateResponse, DepositSwitchTokenCreateResponseDict
+from .depository import Depository, DepositoryDict
+from .depository_account import DepositoryAccount, DepositoryAccountDict
+from .depository_filter import DepositoryFilter, DepositoryFilterDict
+from .distribution_details import DistributionDetails, DistributionDetailsDict
+from .document_metadata import DocumentMetadata, DocumentMetadataDict
+from .earnings import Earnings, EarningsDict
+from .earnings_total import EarningsTotal, EarningsTotalDict
+from .email import Email, EmailDict
+from .employee import Employee, EmployeeDict
+from .employee2 import Employee2, Employee2Dict
+from .employee_income_summary_field_string import EmployeeIncomeSummaryFieldString, EmployeeIncomeSummaryFieldStringDict
+from .employer import Employer, EmployerDict
+from .employer2 import Employer2, Employer2Dict
+from .employer3 import Employer3, Employer3Dict
+from .employer_income_summary_field_string import EmployerIncomeSummaryFieldString, EmployerIncomeSummaryFieldStringDict
+from .employers_search_request import EmployersSearchRequest, EmployersSearchRequestDict
+from .employers_search_response import EmployersSearchResponse, EmployersSearchResponseDict
+from .employment_details import EmploymentDetails, EmploymentDetailsDict
+from .error import Error, ErrorDict
+from .error_error import ErrorError, ErrorErrorDict
+from .external_payment_refund_details import ExternalPaymentRefundDetails, ExternalPaymentRefundDetailsDict
+from .external_payment_schedule_base import ExternalPaymentScheduleBase, ExternalPaymentScheduleBaseDict
+from .external_payment_schedule_get import ExternalPaymentScheduleGet, ExternalPaymentScheduleGetDict
+from .external_payment_schedule_request import ExternalPaymentScheduleRequest, ExternalPaymentScheduleRequestDict
+from .fee_type import FeeType, FeeTypeDict
+from .health_incident import HealthIncident, HealthIncidentDict
+from .historical_balance import HistoricalBalance, HistoricalBalanceDict
+from .historical_update_webhook import HistoricalUpdateWebhook, HistoricalUpdateWebhookDict
+from .holding import Holding, HoldingDict
+from .holdings_default_update_webhook import HoldingsDefaultUpdateWebhook, HoldingsDefaultUpdateWebhookDict
+from .holdings_override import HoldingsOverride, HoldingsOverrideDict
+from .identity_get_request import IdentityGetRequest, IdentityGetRequestDict
+from .identity_get_request_options import IdentityGetRequestOptions, IdentityGetRequestOptionsDict
+from .identity_get_response import IdentityGetResponse, IdentityGetResponseDict
+from .incident_update import IncidentUpdate, IncidentUpdateDict
+from .income_breakdown import IncomeBreakdown, IncomeBreakdownDict
+from .income_override import IncomeOverride, IncomeOverrideDict
+from .income_summary import IncomeSummary, IncomeSummaryDict
+from .income_summary_field_number import IncomeSummaryFieldNumber, IncomeSummaryFieldNumberDict
+from .income_summary_field_string import IncomeSummaryFieldString, IncomeSummaryFieldStringDict
+from .income_verification_create_request import IncomeVerificationCreateRequest, IncomeVerificationCreateRequestDict
+from .income_verification_create_response import IncomeVerificationCreateResponse, IncomeVerificationCreateResponseDict
+from .income_verification_documents_download_request import (
+    IncomeVerificationDocumentsDownloadRequest,
+    IncomeVerificationDocumentsDownloadRequestDict,
+)
+from .income_verification_documents_download_response import (
+    IncomeVerificationDocumentsDownloadResponse,
+    IncomeVerificationDocumentsDownloadResponseDict,
+)
+from .income_verification_paystub_get_request import (
+    IncomeVerificationPaystubGetRequest,
+    IncomeVerificationPaystubGetRequestDict,
+)
+from .income_verification_paystub_get_response import (
+    IncomeVerificationPaystubGetResponse,
+    IncomeVerificationPaystubGetResponseDict,
+)
+from .income_verification_paystubs_get_request import (
+    IncomeVerificationPaystubsGetRequest,
+    IncomeVerificationPaystubsGetRequestDict,
+)
+from .income_verification_paystubs_get_response import (
+    IncomeVerificationPaystubsGetResponse,
+    IncomeVerificationPaystubsGetResponseDict,
+)
+from .income_verification_precheck_employer import (
+    IncomeVerificationPrecheckEmployer,
+    IncomeVerificationPrecheckEmployerDict,
+)
+from .income_verification_precheck_military_info import (
+    IncomeVerificationPrecheckMilitaryInfo,
+    IncomeVerificationPrecheckMilitaryInfoDict,
+)
+from .income_verification_precheck_request import (
+    IncomeVerificationPrecheckRequest,
+    IncomeVerificationPrecheckRequestDict,
+)
+from .income_verification_precheck_response import (
+    IncomeVerificationPrecheckResponse,
+    IncomeVerificationPrecheckResponseDict,
+)
+from .income_verification_precheck_user import IncomeVerificationPrecheckUser, IncomeVerificationPrecheckUserDict
+from .income_verification_refresh_request import IncomeVerificationRefreshRequest, IncomeVerificationRefreshRequestDict
+from .income_verification_refresh_response import (
+    IncomeVerificationRefreshResponse,
+    IncomeVerificationRefreshResponseDict,
+)
+from .income_verification_status_webhook import IncomeVerificationStatusWebhook, IncomeVerificationStatusWebhookDict
+from .income_verification_summary_get_request import (
+    IncomeVerificationSummaryGetRequest,
+    IncomeVerificationSummaryGetRequestDict,
+)
+from .income_verification_summary_get_response import (
+    IncomeVerificationSummaryGetResponse,
+    IncomeVerificationSummaryGetResponseDict,
+)
+from .income_verification_taxforms_get_request import (
+    IncomeVerificationTaxformsGetRequest,
+    IncomeVerificationTaxformsGetRequestDict,
+)
+from .income_verification_taxforms_get_response import (
+    IncomeVerificationTaxformsGetResponse,
+    IncomeVerificationTaxformsGetResponseDict,
+)
+from .income_verification_webhook_status import IncomeVerificationWebhookStatus, IncomeVerificationWebhookStatusDict
+from .inflow_model import InflowModel, InflowModelDict
+from .initial_update_webhook import InitialUpdateWebhook, InitialUpdateWebhookDict
+from .institution import Institution, InstitutionDict
+from .institution_status import InstitutionStatus, InstitutionStatusDict
+from .institutions_get_by_id_request import InstitutionsGetByIdRequest, InstitutionsGetByIdRequestDict
+from .institutions_get_by_id_request_options import (
+    InstitutionsGetByIdRequestOptions,
+    InstitutionsGetByIdRequestOptionsDict,
+)
+from .institutions_get_by_id_response import InstitutionsGetByIdResponse, InstitutionsGetByIdResponseDict
+from .institutions_get_request import InstitutionsGetRequest, InstitutionsGetRequestDict
+from .institutions_get_request_options import InstitutionsGetRequestOptions, InstitutionsGetRequestOptionsDict
+from .institutions_get_response import InstitutionsGetResponse, InstitutionsGetResponseDict
+from .institutions_search_account_filter import InstitutionsSearchAccountFilter, InstitutionsSearchAccountFilterDict
+from .institutions_search_payment_initiation_options import (
+    InstitutionsSearchPaymentInitiationOptions,
+    InstitutionsSearchPaymentInitiationOptionsDict,
+)
+from .institutions_search_request import InstitutionsSearchRequest, InstitutionsSearchRequestDict
+from .institutions_search_request_options import InstitutionsSearchRequestOptions, InstitutionsSearchRequestOptionsDict
+from .institutions_search_response import InstitutionsSearchResponse, InstitutionsSearchResponseDict
+from .investment import Investment, InvestmentDict
+from .investment_account_subtype import InvestmentAccountSubtype, InvestmentAccountSubtypeDict
+from .investment_filter import InvestmentFilter, InvestmentFilterDict
+from .investment_holdings_get_request_options import (
+    InvestmentHoldingsGetRequestOptions,
+    InvestmentHoldingsGetRequestOptionsDict,
+)
+from .investment_transaction import InvestmentTransaction, InvestmentTransactionDict
+from .investments_holdings_get_request import InvestmentsHoldingsGetRequest, InvestmentsHoldingsGetRequestDict
+from .investments_holdings_get_response import InvestmentsHoldingsGetResponse, InvestmentsHoldingsGetResponseDict
+from .investments_transactions_get_request import (
+    InvestmentsTransactionsGetRequest,
+    InvestmentsTransactionsGetRequestDict,
+)
+from .investments_transactions_get_request_options import (
+    InvestmentsTransactionsGetRequestOptions,
+    InvestmentsTransactionsGetRequestOptionsDict,
+)
+from .investments_transactions_get_response import (
+    InvestmentsTransactionsGetResponse,
+    InvestmentsTransactionsGetResponseDict,
+)
+from .investments_transactions_override import InvestmentsTransactionsOverride, InvestmentsTransactionsOverrideDict
+from .item import Item, ItemDict
+from .item_access_token_invalidate_request import ItemAccessTokenInvalidateRequest, ItemAccessTokenInvalidateRequestDict
+from .item_access_token_invalidate_response import (
+    ItemAccessTokenInvalidateResponse,
+    ItemAccessTokenInvalidateResponseDict,
+)
+from .item_application_list_request import ItemApplicationListRequest, ItemApplicationListRequestDict
+from .item_application_list_response import ItemApplicationListResponse, ItemApplicationListResponseDict
+from .item_application_list_user_auth import ItemApplicationListUserAuth, ItemApplicationListUserAuthDict
+from .item_application_scopes_update_request import (
+    ItemApplicationScopesUpdateRequest,
+    ItemApplicationScopesUpdateRequestDict,
+)
+from .item_application_scopes_update_response import (
+    ItemApplicationScopesUpdateResponse,
+    ItemApplicationScopesUpdateResponseDict,
+)
+from .item_error_webhook import ItemErrorWebhook, ItemErrorWebhookDict
+from .item_get_request import ItemGetRequest, ItemGetRequestDict
+from .item_get_response import ItemGetResponse, ItemGetResponseDict
+from .item_import_request import ItemImportRequest, ItemImportRequestDict
+from .item_import_request_options import ItemImportRequestOptions, ItemImportRequestOptionsDict
+from .item_import_request_user_auth import ItemImportRequestUserAuth, ItemImportRequestUserAuthDict
+from .item_import_response import ItemImportResponse, ItemImportResponseDict
+from .item_product_ready_webhook import ItemProductReadyWebhook, ItemProductReadyWebhookDict
+from .item_public_token_create_request import ItemPublicTokenCreateRequest, ItemPublicTokenCreateRequestDict
+from .item_public_token_create_response import ItemPublicTokenCreateResponse, ItemPublicTokenCreateResponseDict
+from .item_public_token_exchange_request import ItemPublicTokenExchangeRequest, ItemPublicTokenExchangeRequestDict
+from .item_public_token_exchange_response import ItemPublicTokenExchangeResponse, ItemPublicTokenExchangeResponseDict
+from .item_remove_request import ItemRemoveRequest, ItemRemoveRequestDict
+from .item_remove_response import ItemRemoveResponse, ItemRemoveResponseDict
+from .item_status import ItemStatus, ItemStatusDict
+from .item_status_investments import ItemStatusInvestments, ItemStatusInvestmentsDict
+from .item_status_last_webhook import ItemStatusLastWebhook, ItemStatusLastWebhookDict
+from .item_status_nullable import ItemStatusNullable, ItemStatusNullableDict
+from .item_status_transactions import ItemStatusTransactions, ItemStatusTransactionsDict
+from .item_webhook_update_request import ItemWebhookUpdateRequest, ItemWebhookUpdateRequestDict
+from .item_webhook_update_response import ItemWebhookUpdateResponse, ItemWebhookUpdateResponseDict
+from .jwkpublic_key import JwkpublicKey, JwkpublicKeyDict
+from .jwtheader import Jwtheader, JwtheaderDict
+from .liabilities_default_update_webhook import LiabilitiesDefaultUpdateWebhook, LiabilitiesDefaultUpdateWebhookDict
+from .liabilities_get_request import LiabilitiesGetRequest, LiabilitiesGetRequestDict
+from .liabilities_get_request_options import LiabilitiesGetRequestOptions, LiabilitiesGetRequestOptionsDict
+from .liabilities_get_response import LiabilitiesGetResponse, LiabilitiesGetResponseDict
+from .liabilities_object import LiabilitiesObject, LiabilitiesObjectDict
+from .liability_override import LiabilityOverride, LiabilityOverrideDict
+from .link_token_account_filters import LinkTokenAccountFilters, LinkTokenAccountFiltersDict
+from .link_token_create_request import LinkTokenCreateRequest, LinkTokenCreateRequestDict
+from .link_token_create_request_account_subtypes import (
+    LinkTokenCreateRequestAccountSubtypes,
+    LinkTokenCreateRequestAccountSubtypesDict,
+)
+from .link_token_create_request_auth import LinkTokenCreateRequestAuth, LinkTokenCreateRequestAuthDict
+from .link_token_create_request_deposit_switch import (
+    LinkTokenCreateRequestDepositSwitch,
+    LinkTokenCreateRequestDepositSwitchDict,
+)
+from .link_token_create_request_income_verification import (
+    LinkTokenCreateRequestIncomeVerification,
+    LinkTokenCreateRequestIncomeVerificationDict,
+)
+from .link_token_create_request_payment_initiation import (
+    LinkTokenCreateRequestPaymentInitiation,
+    LinkTokenCreateRequestPaymentInitiationDict,
+)
+from .link_token_create_request_update import LinkTokenCreateRequestUpdate, LinkTokenCreateRequestUpdateDict
+from .link_token_create_request_user import LinkTokenCreateRequestUser, LinkTokenCreateRequestUserDict
+from .link_token_create_response import LinkTokenCreateResponse, LinkTokenCreateResponseDict
+from .link_token_euconfig import LinkTokenEuconfig, LinkTokenEuconfigDict
+from .link_token_get_metadata_response import LinkTokenGetMetadataResponse, LinkTokenGetMetadataResponseDict
+from .link_token_get_request import LinkTokenGetRequest, LinkTokenGetRequestDict
+from .link_token_get_response import LinkTokenGetResponse, LinkTokenGetResponseDict
+from .loan import Loan, LoanDict
+from .loan_account import LoanAccount, LoanAccountDict
+from .loan_filter import LoanFilter, LoanFilterDict
+from .meta import Meta, MetaDict
+from .mfa import Mfa, MfaDict
+from .mortgage_interest_rate import MortgageInterestRate, MortgageInterestRateDict
+from .mortgage_liability import MortgageLiability, MortgageLiabilityDict
+from .mortgage_property_address import MortgagePropertyAddress, MortgagePropertyAddressDict
+from .net_pay import NetPay, NetPayDict
+from .new_accounts_available_webhook import NewAccountsAvailableWebhook, NewAccountsAvailableWebhookDict
+from .numbers import Numbers, NumbersDict
+from .numbers_ach import NumbersAch, NumbersAchDict
+from .numbers_achnullable import NumbersAchnullable, NumbersAchnullableDict
+from .numbers_bacs import NumbersBacs, NumbersBacsDict
+from .numbers_bacsnullable import NumbersBacsnullable, NumbersBacsnullableDict
+from .numbers_eft import NumbersEft, NumbersEftDict
+from .numbers_eftnullable import NumbersEftnullable, NumbersEftnullableDict
+from .numbers_international import NumbersInternational, NumbersInternationalDict
+from .numbers_international_nullable import NumbersInternationalNullable, NumbersInternationalNullableDict
+from .override_accounts import OverrideAccounts, OverrideAccountsDict
+from .owner import Owner, OwnerDict
+from .owner_override import OwnerOverride, OwnerOverrideDict
+from .pay import Pay, PayDict
+from .pay_frequency import PayFrequency, PayFrequencyDict
+from .pay_period_details import PayPeriodDetails, PayPeriodDetailsDict
+from .payment_amount import PaymentAmount, PaymentAmountDict
+from .payment_initiation_address import PaymentInitiationAddress, PaymentInitiationAddressDict
+from .payment_initiation_metadata import PaymentInitiationMetadata, PaymentInitiationMetadataDict
+from .payment_initiation_optional_restriction_bacs import (
+    PaymentInitiationOptionalRestrictionBacs,
+    PaymentInitiationOptionalRestrictionBacsDict,
+)
+from .payment_initiation_payment import PaymentInitiationPayment, PaymentInitiationPaymentDict
+from .payment_initiation_payment_create_request import (
+    PaymentInitiationPaymentCreateRequest,
+    PaymentInitiationPaymentCreateRequestDict,
+)
+from .payment_initiation_payment_create_response import (
+    PaymentInitiationPaymentCreateResponse,
+    PaymentInitiationPaymentCreateResponseDict,
+)
+from .payment_initiation_payment_get_request import (
+    PaymentInitiationPaymentGetRequest,
+    PaymentInitiationPaymentGetRequestDict,
+)
+from .payment_initiation_payment_get_response import (
+    PaymentInitiationPaymentGetResponse,
+    PaymentInitiationPaymentGetResponseDict,
+)
+from .payment_initiation_payment_list_request import (
+    PaymentInitiationPaymentListRequest,
+    PaymentInitiationPaymentListRequestDict,
+)
+from .payment_initiation_payment_list_response import (
+    PaymentInitiationPaymentListResponse,
+    PaymentInitiationPaymentListResponseDict,
+)
+from .payment_initiation_payment_reverse_request import (
+    PaymentInitiationPaymentReverseRequest,
+    PaymentInitiationPaymentReverseRequestDict,
+)
+from .payment_initiation_payment_reverse_response import (
+    PaymentInitiationPaymentReverseResponse,
+    PaymentInitiationPaymentReverseResponseDict,
+)
+from .payment_initiation_payment_token_create_request import (
+    PaymentInitiationPaymentTokenCreateRequest,
+    PaymentInitiationPaymentTokenCreateRequestDict,
+)
+from .payment_initiation_payment_token_create_response import (
+    PaymentInitiationPaymentTokenCreateResponse,
+    PaymentInitiationPaymentTokenCreateResponseDict,
+)
+from .payment_initiation_recipient import PaymentInitiationRecipient, PaymentInitiationRecipientDict
+from .payment_initiation_recipient_create_request import (
+    PaymentInitiationRecipientCreateRequest,
+    PaymentInitiationRecipientCreateRequestDict,
+)
+from .payment_initiation_recipient_create_response import (
+    PaymentInitiationRecipientCreateResponse,
+    PaymentInitiationRecipientCreateResponseDict,
+)
+from .payment_initiation_recipient_get_request import (
+    PaymentInitiationRecipientGetRequest,
+    PaymentInitiationRecipientGetRequestDict,
+)
+from .payment_initiation_recipient_get_response import (
+    PaymentInitiationRecipientGetResponse,
+    PaymentInitiationRecipientGetResponseDict,
+)
+from .payment_initiation_recipient_list_request import (
+    PaymentInitiationRecipientListRequest,
+    PaymentInitiationRecipientListRequestDict,
+)
+from .payment_initiation_recipient_list_response import (
+    PaymentInitiationRecipientListResponse,
+    PaymentInitiationRecipientListResponseDict,
+)
+from .payment_initiation_refund import PaymentInitiationRefund, PaymentInitiationRefundDict
+from .payment_initiation_standing_order_metadata import (
+    PaymentInitiationStandingOrderMetadata,
+    PaymentInitiationStandingOrderMetadataDict,
+)
+from .payment_meta import PaymentMeta, PaymentMetaDict
+from .payment_options import PaymentOptions, PaymentOptionsDict
+from .payment_status_update_webhook import PaymentStatusUpdateWebhook, PaymentStatusUpdateWebhookDict
+from .paystub import Paystub, PaystubDict
+from .paystub_deduction import PaystubDeduction, PaystubDeductionDict
+from .paystub_details import PaystubDetails, PaystubDetailsDict
+from .paystub_override import PaystubOverride, PaystubOverrideDict
+from .paystub_ytddetails import PaystubYtddetails, PaystubYtddetailsDict
+from .pending_expiration_webhook import PendingExpirationWebhook, PendingExpirationWebhookDict
+from .personal_finance_category import PersonalFinanceCategory, PersonalFinanceCategoryDict
+from .personal_finance_category2 import PersonalFinanceCategory2, PersonalFinanceCategory2Dict
+from .phone_number import PhoneNumber, PhoneNumberDict
+from .processor_apex_processor_token_create_request import (
+    ProcessorApexProcessorTokenCreateRequest,
+    ProcessorApexProcessorTokenCreateRequestDict,
+)
+from .processor_auth_get_request import ProcessorAuthGetRequest, ProcessorAuthGetRequestDict
+from .processor_auth_get_response import ProcessorAuthGetResponse, ProcessorAuthGetResponseDict
+from .processor_balance_get_request import ProcessorBalanceGetRequest, ProcessorBalanceGetRequestDict
+from .processor_balance_get_request_options import (
+    ProcessorBalanceGetRequestOptions,
+    ProcessorBalanceGetRequestOptionsDict,
+)
+from .processor_balance_get_response import ProcessorBalanceGetResponse, ProcessorBalanceGetResponseDict
+from .processor_bank_transfer_create_request import (
+    ProcessorBankTransferCreateRequest,
+    ProcessorBankTransferCreateRequestDict,
+)
+from .processor_bank_transfer_create_response import (
+    ProcessorBankTransferCreateResponse,
+    ProcessorBankTransferCreateResponseDict,
+)
+from .processor_identity_get_request import ProcessorIdentityGetRequest, ProcessorIdentityGetRequestDict
+from .processor_identity_get_response import ProcessorIdentityGetResponse, ProcessorIdentityGetResponseDict
+from .processor_number import ProcessorNumber, ProcessorNumberDict
+from .processor_stripe_bank_account_token_create_request import (
+    ProcessorStripeBankAccountTokenCreateRequest,
+    ProcessorStripeBankAccountTokenCreateRequestDict,
+)
+from .processor_stripe_bank_account_token_create_response import (
+    ProcessorStripeBankAccountTokenCreateResponse,
+    ProcessorStripeBankAccountTokenCreateResponseDict,
+)
+from .processor_token_create_request import ProcessorTokenCreateRequest, ProcessorTokenCreateRequestDict
+from .processor_token_create_response import ProcessorTokenCreateResponse, ProcessorTokenCreateResponseDict
+from .product_access import ProductAccess, ProductAccessDict
+from .product_status import ProductStatus, ProductStatusDict
+from .projected_income_summary_field_number import (
+    ProjectedIncomeSummaryFieldNumber,
+    ProjectedIncomeSummaryFieldNumberDict,
+)
+from .pslfstatus import Pslfstatus, PslfstatusDict
+from .recaptcha_required_error import RecaptchaRequiredError, RecaptchaRequiredErrorDict
+from .recipient_bacs import RecipientBacs, RecipientBacsDict
+from .recipient_bacsnullable import RecipientBacsnullable, RecipientBacsnullableDict
+from .requested_scopes import RequestedScopes, RequestedScopesDict
+from .sandbox_bank_transfer_fire_webhook_request import (
+    SandboxBankTransferFireWebhookRequest,
+    SandboxBankTransferFireWebhookRequestDict,
+)
+from .sandbox_bank_transfer_fire_webhook_response import (
+    SandboxBankTransferFireWebhookResponse,
+    SandboxBankTransferFireWebhookResponseDict,
+)
+from .sandbox_bank_transfer_simulate_request import (
+    SandboxBankTransferSimulateRequest,
+    SandboxBankTransferSimulateRequestDict,
+)
+from .sandbox_bank_transfer_simulate_response import (
+    SandboxBankTransferSimulateResponse,
+    SandboxBankTransferSimulateResponseDict,
+)
+from .sandbox_income_fire_webhook_request import SandboxIncomeFireWebhookRequest, SandboxIncomeFireWebhookRequestDict
+from .sandbox_income_fire_webhook_response import SandboxIncomeFireWebhookResponse, SandboxIncomeFireWebhookResponseDict
+from .sandbox_item_fire_webhook_request import SandboxItemFireWebhookRequest, SandboxItemFireWebhookRequestDict
+from .sandbox_item_fire_webhook_response import SandboxItemFireWebhookResponse, SandboxItemFireWebhookResponseDict
+from .sandbox_item_reset_login_request import SandboxItemResetLoginRequest, SandboxItemResetLoginRequestDict
+from .sandbox_item_reset_login_response import SandboxItemResetLoginResponse, SandboxItemResetLoginResponseDict
+from .sandbox_item_set_verification_status_request import (
+    SandboxItemSetVerificationStatusRequest,
+    SandboxItemSetVerificationStatusRequestDict,
+)
+from .sandbox_item_set_verification_status_response import (
+    SandboxItemSetVerificationStatusResponse,
+    SandboxItemSetVerificationStatusResponseDict,
+)
+from .sandbox_oauth_select_accounts_request import (
+    SandboxOauthSelectAccountsRequest,
+    SandboxOauthSelectAccountsRequestDict,
+)
+from .sandbox_processor_token_create_request import (
+    SandboxProcessorTokenCreateRequest,
+    SandboxProcessorTokenCreateRequestDict,
+)
+from .sandbox_processor_token_create_request_options import (
+    SandboxProcessorTokenCreateRequestOptions,
+    SandboxProcessorTokenCreateRequestOptionsDict,
+)
+from .sandbox_processor_token_create_response import (
+    SandboxProcessorTokenCreateResponse,
+    SandboxProcessorTokenCreateResponseDict,
+)
+from .sandbox_public_token_create_request import SandboxPublicTokenCreateRequest, SandboxPublicTokenCreateRequestDict
+from .sandbox_public_token_create_request_options import (
+    SandboxPublicTokenCreateRequestOptions,
+    SandboxPublicTokenCreateRequestOptionsDict,
+)
+from .sandbox_public_token_create_request_options_transactions import (
+    SandboxPublicTokenCreateRequestOptionsTransactions,
+    SandboxPublicTokenCreateRequestOptionsTransactionsDict,
+)
+from .sandbox_public_token_create_response import SandboxPublicTokenCreateResponse, SandboxPublicTokenCreateResponseDict
+from .sandbox_transfer_simulate_request import SandboxTransferSimulateRequest, SandboxTransferSimulateRequestDict
+from .sandbox_transfer_simulate_response import SandboxTransferSimulateResponse, SandboxTransferSimulateResponseDict
+from .scopes import Scopes, ScopesDict
+from .scopes_nullable import ScopesNullable, ScopesNullableDict
+from .security import Security, SecurityDict
+from .security_override import SecurityOverride, SecurityOverrideDict
+from .sell_type import SellType, SellTypeDict
+from .sender_bacsnullable import SenderBacsnullable, SenderBacsnullableDict
+from .servicer_address_data import ServicerAddressData, ServicerAddressDataDict
+from .signal_decision_report_request import SignalDecisionReportRequest, SignalDecisionReportRequestDict
+from .signal_decision_report_response import SignalDecisionReportResponse, SignalDecisionReportResponseDict
+from .signal_evaluate_core_attributes import SignalEvaluateCoreAttributes, SignalEvaluateCoreAttributesDict
+from .signal_evaluate_device import SignalEvaluateDevice, SignalEvaluateDeviceDict
+from .signal_evaluate_request import SignalEvaluateRequest, SignalEvaluateRequestDict
+from .signal_evaluate_response import SignalEvaluateResponse, SignalEvaluateResponseDict
+from .signal_evaluate_scores import SignalEvaluateScores, SignalEvaluateScoresDict
+from .signal_person_name import SignalPersonName, SignalPersonNameDict
+from .signal_return_report_request import SignalReturnReportRequest, SignalReturnReportRequestDict
+from .signal_return_report_response import SignalReturnReportResponse, SignalReturnReportResponseDict
+from .signal_user import SignalUser, SignalUserDict
+from .standalone_account_type import StandaloneAccountType, StandaloneAccountTypeDict
+from .standalone_currency_code_list import StandaloneCurrencyCodeList, StandaloneCurrencyCodeListDict
+from .standalone_investment_transaction_type import (
+    StandaloneInvestmentTransactionType,
+    StandaloneInvestmentTransactionTypeDict,
+)
+from .status_breakdown import StatusBreakdown, StatusBreakdownDict
+from .student_loan import StudentLoan, StudentLoanDict
+from .student_loan_repayment_model import StudentLoanRepaymentModel, StudentLoanRepaymentModelDict
+from .student_loan_status import StudentLoanStatus, StudentLoanStatusDict
+from .student_repayment_plan import StudentRepaymentPlan, StudentRepaymentPlanDict
+from .taxform import Taxform, TaxformDict
+from .taxpayer_id import TaxpayerId, TaxpayerIdDict
+from .total import Total, TotalDict
+from .transaction import Transaction, TransactionDict
+from .transaction_base import TransactionBase, TransactionBaseDict
+from .transaction_data import TransactionData, TransactionDataDict
+from .transaction_location import TransactionLocation, TransactionLocationDict
+from .transaction_override import TransactionOverride, TransactionOverrideDict
+from .transactions_get_request import TransactionsGetRequest, TransactionsGetRequestDict
+from .transactions_get_request_options import TransactionsGetRequestOptions, TransactionsGetRequestOptionsDict
+from .transactions_get_response import TransactionsGetResponse, TransactionsGetResponseDict
+from .transactions_refresh_request import TransactionsRefreshRequest, TransactionsRefreshRequestDict
+from .transactions_refresh_response import TransactionsRefreshResponse, TransactionsRefreshResponseDict
+from .transactions_removed_webhook import TransactionsRemovedWebhook, TransactionsRemovedWebhookDict
+from .transactions_update_investments_webhook import (
+    TransactionsUpdateInvestmentsWebhook,
+    TransactionsUpdateInvestmentsWebhookDict,
+)
+from .transfer import Transfer, TransferDict
+from .transfer_authorization import TransferAuthorization, TransferAuthorizationDict
+from .transfer_authorization_create_request import (
+    TransferAuthorizationCreateRequest,
+    TransferAuthorizationCreateRequestDict,
+)
+from .transfer_authorization_create_response import (
+    TransferAuthorizationCreateResponse,
+    TransferAuthorizationCreateResponseDict,
+)
+from .transfer_authorization_decision_rationale import (
+    TransferAuthorizationDecisionRationale,
+    TransferAuthorizationDecisionRationaleDict,
+)
+from .transfer_authorization_device import TransferAuthorizationDevice, TransferAuthorizationDeviceDict
+from .transfer_authorization_proposed_transfer import (
+    TransferAuthorizationProposedTransfer,
+    TransferAuthorizationProposedTransferDict,
+)
+from .transfer_cancel_request import TransferCancelRequest, TransferCancelRequestDict
+from .transfer_cancel_response import TransferCancelResponse, TransferCancelResponseDict
+from .transfer_create_request import TransferCreateRequest, TransferCreateRequestDict
+from .transfer_create_response import TransferCreateResponse, TransferCreateResponseDict
+from .transfer_event import TransferEvent, TransferEventDict
+from .transfer_event_list_request import TransferEventListRequest, TransferEventListRequestDict
+from .transfer_event_list_response import TransferEventListResponse, TransferEventListResponseDict
+from .transfer_event_sync_request import TransferEventSyncRequest, TransferEventSyncRequestDict
+from .transfer_event_sync_response import TransferEventSyncResponse, TransferEventSyncResponseDict
+from .transfer_failure import TransferFailure, TransferFailureDict
+from .transfer_get_request import TransferGetRequest, TransferGetRequestDict
+from .transfer_get_response import TransferGetResponse, TransferGetResponseDict
+from .transfer_list_request import TransferListRequest, TransferListRequestDict
+from .transfer_list_response import TransferListResponse, TransferListResponseDict
+from .transfer_type import TransferType, TransferTypeDict
+from .transfer_user_address_in_request import TransferUserAddressInRequest, TransferUserAddressInRequestDict
+from .transfer_user_address_in_response import TransferUserAddressInResponse, TransferUserAddressInResponseDict
+from .transfer_user_in_request import TransferUserInRequest, TransferUserInRequestDict
+from .transfer_user_in_response import TransferUserInResponse, TransferUserInResponseDict
+from .unofficial_currency_code_list import UnofficialCurrencyCodeList, UnofficialCurrencyCodeListDict
+from .user_custom_password import UserCustomPassword, UserCustomPasswordDict
+from .user_permission_revoked_webhook import UserPermissionRevokedWebhook, UserPermissionRevokedWebhookDict
+from .verification_expired_webhook import VerificationExpiredWebhook, VerificationExpiredWebhookDict
+from .w2 import W2, W2Dict
+from .w2_box12 import W2Box12, W2Box12Dict
+from .w2_state_and_local_wages import W2StateAndLocalWages, W2StateAndLocalWagesDict
+from .warning_model import WarningModel, WarningModelDict
+from .webhook_update_acknowledged_webhook import WebhookUpdateAcknowledgedWebhook, WebhookUpdateAcknowledgedWebhookDict
+from .webhook_verification_key_get_request import WebhookVerificationKeyGetRequest, WebhookVerificationKeyGetRequestDict
+from .webhook_verification_key_get_response import (
+    WebhookVerificationKeyGetResponse,
+    WebhookVerificationKeyGetResponseDict,
+)
+from .ytdgross_income_summary_field_number import YtdgrossIncomeSummaryFieldNumber, YtdgrossIncomeSummaryFieldNumberDict
+from .ytdnet_income_summary_field_number import YtdnetIncomeSummaryFieldNumber, YtdnetIncomeSummaryFieldNumberDict
+
+__all__ = [
+    "enums",
+    "Account",
+    "AccountAccess",
+    "AccountAccessDict",
+    "AccountAssets",
+    "AccountAssetsDict",
+    "AccountBalance",
+    "AccountBalanceDict",
+    "AccountDict",
+    "AccountFilter",
+    "AccountFilterDict",
+    "AccountFiltersResponse",
+    "AccountFiltersResponseDict",
+    "AccountIdentity",
+    "AccountIdentityDict",
+    "AccountsBalanceGetRequest",
+    "AccountsBalanceGetRequestDict",
+    "AccountsBalanceGetRequestOptions",
+    "AccountsBalanceGetRequestOptionsDict",
+    "AccountsGetRequest",
+    "AccountsGetRequestDict",
+    "AccountsGetRequestOptions",
+    "AccountsGetRequestOptionsDict",
+    "AccountsGetResponse",
+    "AccountsGetResponseDict",
+    "Address",
+    "Address1",
+    "Address1Dict",
+    "Address2",
+    "Address2Dict",
+    "AddressData",
+    "AddressData1",
+    "AddressData1Dict",
+    "AddressDataDict",
+    "AddressDataNullable",
+    "AddressDataNullableDict",
+    "AddressDict",
+    "AddressNullable",
+    "AddressNullableDict",
+    "Application",
+    "ApplicationDict",
+    "ApplicationGetRequest",
+    "ApplicationGetRequestDict",
+    "ApplicationGetResponse",
+    "ApplicationGetResponseDict",
+    "Apr",
+    "AprDict",
+    "AssetReport",
+    "AssetReportAuditCopyCreateRequest",
+    "AssetReportAuditCopyCreateRequestDict",
+    "AssetReportAuditCopyCreateResponse",
+    "AssetReportAuditCopyCreateResponseDict",
+    "AssetReportAuditCopyGetRequest",
+    "AssetReportAuditCopyGetRequestDict",
+    "AssetReportAuditCopyRemoveRequest",
+    "AssetReportAuditCopyRemoveRequestDict",
+    "AssetReportAuditCopyRemoveResponse",
+    "AssetReportAuditCopyRemoveResponseDict",
+    "AssetReportCreateRequest",
+    "AssetReportCreateRequestDict",
+    "AssetReportCreateRequestOptions",
+    "AssetReportCreateRequestOptionsDict",
+    "AssetReportCreateResponse",
+    "AssetReportCreateResponseDict",
+    "AssetReportDict",
+    "AssetReportFilterRequest",
+    "AssetReportFilterRequestDict",
+    "AssetReportFilterResponse",
+    "AssetReportFilterResponseDict",
+    "AssetReportGetRequest",
+    "AssetReportGetRequestDict",
+    "AssetReportGetResponse",
+    "AssetReportGetResponseDict",
+    "AssetReportItem",
+    "AssetReportItemDict",
+    "AssetReportPdfgetRequest",
+    "AssetReportPdfgetRequestDict",
+    "AssetReportRefreshRequest",
+    "AssetReportRefreshRequestDict",
+    "AssetReportRefreshRequestOptions",
+    "AssetReportRefreshRequestOptionsDict",
+    "AssetReportRefreshResponse",
+    "AssetReportRefreshResponseDict",
+    "AssetReportRemoveRequest",
+    "AssetReportRemoveRequestDict",
+    "AssetReportRemoveResponse",
+    "AssetReportRemoveResponseDict",
+    "AssetReportTransaction",
+    "AssetReportTransactionDict",
+    "AssetReportUser",
+    "AssetReportUserDict",
+    "AssetsErrorWebhook",
+    "AssetsErrorWebhookDict",
+    "AssetsProductReadyWebhook",
+    "AssetsProductReadyWebhookDict",
+    "AuthGetNumbers",
+    "AuthGetNumbersDict",
+    "AuthGetRequest",
+    "AuthGetRequestDict",
+    "AuthGetRequestOptions",
+    "AuthGetRequestOptionsDict",
+    "AuthGetResponse",
+    "AuthGetResponseDict",
+    "AuthMetadata",
+    "AuthMetadataDict",
+    "AuthSupportedMethods",
+    "AuthSupportedMethodsDict",
+    "AutomaticallyVerifiedWebhook",
+    "AutomaticallyVerifiedWebhookDict",
+    "BankInitiatedReturnRisk",
+    "BankInitiatedReturnRiskDict",
+    "BankTransfer",
+    "BankTransferBalance",
+    "BankTransferBalanceDict",
+    "BankTransferBalanceGetRequest",
+    "BankTransferBalanceGetRequestDict",
+    "BankTransferBalanceGetResponse",
+    "BankTransferBalanceGetResponseDict",
+    "BankTransferCancelRequest",
+    "BankTransferCancelRequestDict",
+    "BankTransferCancelResponse",
+    "BankTransferCancelResponseDict",
+    "BankTransferCreateRequest",
+    "BankTransferCreateRequestDict",
+    "BankTransferCreateResponse",
+    "BankTransferCreateResponseDict",
+    "BankTransferDict",
+    "BankTransferEvent",
+    "BankTransferEventDict",
+    "BankTransferEventListRequest",
+    "BankTransferEventListRequestDict",
+    "BankTransferEventListResponse",
+    "BankTransferEventListResponseDict",
+    "BankTransferEventSyncRequest",
+    "BankTransferEventSyncRequestDict",
+    "BankTransferEventSyncResponse",
+    "BankTransferEventSyncResponseDict",
+    "BankTransferFailure",
+    "BankTransferFailureDict",
+    "BankTransferGetRequest",
+    "BankTransferGetRequestDict",
+    "BankTransferGetResponse",
+    "BankTransferGetResponseDict",
+    "BankTransferListRequest",
+    "BankTransferListRequestDict",
+    "BankTransferListResponse",
+    "BankTransferListResponseDict",
+    "BankTransferMigrateAccountRequest",
+    "BankTransferMigrateAccountRequestDict",
+    "BankTransferMigrateAccountResponse",
+    "BankTransferMigrateAccountResponseDict",
+    "BankTransferReceiverDetails",
+    "BankTransferReceiverDetailsDict",
+    "BankTransferSweep",
+    "BankTransferSweepAccount",
+    "BankTransferSweepAccountDict",
+    "BankTransferSweepDict",
+    "BankTransferSweepGetRequest",
+    "BankTransferSweepGetRequestDict",
+    "BankTransferSweepGetResponse",
+    "BankTransferSweepGetResponseDict",
+    "BankTransferSweepListRequest",
+    "BankTransferSweepListRequestDict",
+    "BankTransferSweepListResponse",
+    "BankTransferSweepListResponseDict",
+    "BankTransferUser",
+    "BankTransferUserDict",
+    "BankTransfersEventsUpdateWebhook",
+    "BankTransfersEventsUpdateWebhookDict",
+    "BuyType",
+    "BuyTypeDict",
+    "CashType",
+    "CashTypeDict",
+    "CategoriesGetResponse",
+    "CategoriesGetResponseDict",
+    "Category",
+    "CategoryDict",
+    "Cause",
+    "CauseDict",
+    "ConnectedApplication",
+    "ConnectedApplicationDict",
+    "Credit",
+    "CreditAccount",
+    "CreditAccountDict",
+    "CreditCardLiability",
+    "CreditCardLiabilityDict",
+    "CreditDict",
+    "CreditFilter",
+    "CreditFilterDict",
+    "CustomerInitiatedReturnRisk",
+    "CustomerInitiatedReturnRiskDict",
+    "Deductions",
+    "DeductionsDict",
+    "DefaultUpdateWebhook",
+    "DefaultUpdateWebhookDict",
+    "DepositSwitchAddressData",
+    "DepositSwitchAddressDataDict",
+    "DepositSwitchAltCreateRequest",
+    "DepositSwitchAltCreateRequestDict",
+    "DepositSwitchAltCreateResponse",
+    "DepositSwitchAltCreateResponseDict",
+    "DepositSwitchCreateRequest",
+    "DepositSwitchCreateRequestDict",
+    "DepositSwitchCreateRequestOptions",
+    "DepositSwitchCreateRequestOptionsDict",
+    "DepositSwitchCreateResponse",
+    "DepositSwitchCreateResponseDict",
+    "DepositSwitchGetRequest",
+    "DepositSwitchGetRequestDict",
+    "DepositSwitchGetResponse",
+    "DepositSwitchGetResponseDict",
+    "DepositSwitchStateUpdateWebhook",
+    "DepositSwitchStateUpdateWebhookDict",
+    "DepositSwitchTargetAccount",
+    "DepositSwitchTargetAccountDict",
+    "DepositSwitchTargetUser",
+    "DepositSwitchTargetUserDict",
+    "DepositSwitchTokenCreateRequest",
+    "DepositSwitchTokenCreateRequestDict",
+    "DepositSwitchTokenCreateResponse",
+    "DepositSwitchTokenCreateResponseDict",
+    "Depository",
+    "DepositoryAccount",
+    "DepositoryAccountDict",
+    "DepositoryDict",
+    "DepositoryFilter",
+    "DepositoryFilterDict",
+    "DistributionDetails",
+    "DistributionDetailsDict",
+    "DocumentMetadata",
+    "DocumentMetadataDict",
+    "Earnings",
+    "EarningsDict",
+    "EarningsTotal",
+    "EarningsTotalDict",
+    "Email",
+    "EmailDict",
+    "Employee",
+    "Employee2",
+    "Employee2Dict",
+    "EmployeeDict",
+    "EmployeeIncomeSummaryFieldString",
+    "EmployeeIncomeSummaryFieldStringDict",
+    "Employer",
+    "Employer2",
+    "Employer2Dict",
+    "Employer3",
+    "Employer3Dict",
+    "EmployerDict",
+    "EmployerIncomeSummaryFieldString",
+    "EmployerIncomeSummaryFieldStringDict",
+    "EmployersSearchRequest",
+    "EmployersSearchRequestDict",
+    "EmployersSearchResponse",
+    "EmployersSearchResponseDict",
+    "EmploymentDetails",
+    "EmploymentDetailsDict",
+    "Error",
+    "ErrorDict",
+    "ErrorError",
+    "ErrorErrorDict",
+    "ExternalPaymentRefundDetails",
+    "ExternalPaymentRefundDetailsDict",
+    "ExternalPaymentScheduleBase",
+    "ExternalPaymentScheduleBaseDict",
+    "ExternalPaymentScheduleGet",
+    "ExternalPaymentScheduleGetDict",
+    "ExternalPaymentScheduleRequest",
+    "ExternalPaymentScheduleRequestDict",
+    "FeeType",
+    "FeeTypeDict",
+    "HealthIncident",
+    "HealthIncidentDict",
+    "HistoricalBalance",
+    "HistoricalBalanceDict",
+    "HistoricalUpdateWebhook",
+    "HistoricalUpdateWebhookDict",
+    "Holding",
+    "HoldingDict",
+    "HoldingsDefaultUpdateWebhook",
+    "HoldingsDefaultUpdateWebhookDict",
+    "HoldingsOverride",
+    "HoldingsOverrideDict",
+    "IdentityGetRequest",
+    "IdentityGetRequestDict",
+    "IdentityGetRequestOptions",
+    "IdentityGetRequestOptionsDict",
+    "IdentityGetResponse",
+    "IdentityGetResponseDict",
+    "IncidentUpdate",
+    "IncidentUpdateDict",
+    "IncomeBreakdown",
+    "IncomeBreakdownDict",
+    "IncomeOverride",
+    "IncomeOverrideDict",
+    "IncomeSummary",
+    "IncomeSummaryDict",
+    "IncomeSummaryFieldNumber",
+    "IncomeSummaryFieldNumberDict",
+    "IncomeSummaryFieldString",
+    "IncomeSummaryFieldStringDict",
+    "IncomeVerificationCreateRequest",
+    "IncomeVerificationCreateRequestDict",
+    "IncomeVerificationCreateResponse",
+    "IncomeVerificationCreateResponseDict",
+    "IncomeVerificationDocumentsDownloadRequest",
+    "IncomeVerificationDocumentsDownloadRequestDict",
+    "IncomeVerificationDocumentsDownloadResponse",
+    "IncomeVerificationDocumentsDownloadResponseDict",
+    "IncomeVerificationPaystubGetRequest",
+    "IncomeVerificationPaystubGetRequestDict",
+    "IncomeVerificationPaystubGetResponse",
+    "IncomeVerificationPaystubGetResponseDict",
+    "IncomeVerificationPaystubsGetRequest",
+    "IncomeVerificationPaystubsGetRequestDict",
+    "IncomeVerificationPaystubsGetResponse",
+    "IncomeVerificationPaystubsGetResponseDict",
+    "IncomeVerificationPrecheckEmployer",
+    "IncomeVerificationPrecheckEmployerDict",
+    "IncomeVerificationPrecheckMilitaryInfo",
+    "IncomeVerificationPrecheckMilitaryInfoDict",
+    "IncomeVerificationPrecheckRequest",
+    "IncomeVerificationPrecheckRequestDict",
+    "IncomeVerificationPrecheckResponse",
+    "IncomeVerificationPrecheckResponseDict",
+    "IncomeVerificationPrecheckUser",
+    "IncomeVerificationPrecheckUserDict",
+    "IncomeVerificationRefreshRequest",
+    "IncomeVerificationRefreshRequestDict",
+    "IncomeVerificationRefreshResponse",
+    "IncomeVerificationRefreshResponseDict",
+    "IncomeVerificationStatusWebhook",
+    "IncomeVerificationStatusWebhookDict",
+    "IncomeVerificationSummaryGetRequest",
+    "IncomeVerificationSummaryGetRequestDict",
+    "IncomeVerificationSummaryGetResponse",
+    "IncomeVerificationSummaryGetResponseDict",
+    "IncomeVerificationTaxformsGetRequest",
+    "IncomeVerificationTaxformsGetRequestDict",
+    "IncomeVerificationTaxformsGetResponse",
+    "IncomeVerificationTaxformsGetResponseDict",
+    "IncomeVerificationWebhookStatus",
+    "IncomeVerificationWebhookStatusDict",
+    "InflowModel",
+    "InflowModelDict",
+    "InitialUpdateWebhook",
+    "InitialUpdateWebhookDict",
+    "Institution",
+    "InstitutionDict",
+    "InstitutionStatus",
+    "InstitutionStatusDict",
+    "InstitutionsGetByIdRequest",
+    "InstitutionsGetByIdRequestDict",
+    "InstitutionsGetByIdRequestOptions",
+    "InstitutionsGetByIdRequestOptionsDict",
+    "InstitutionsGetByIdResponse",
+    "InstitutionsGetByIdResponseDict",
+    "InstitutionsGetRequest",
+    "InstitutionsGetRequestDict",
+    "InstitutionsGetRequestOptions",
+    "InstitutionsGetRequestOptionsDict",
+    "InstitutionsGetResponse",
+    "InstitutionsGetResponseDict",
+    "InstitutionsSearchAccountFilter",
+    "InstitutionsSearchAccountFilterDict",
+    "InstitutionsSearchPaymentInitiationOptions",
+    "InstitutionsSearchPaymentInitiationOptionsDict",
+    "InstitutionsSearchRequest",
+    "InstitutionsSearchRequestDict",
+    "InstitutionsSearchRequestOptions",
+    "InstitutionsSearchRequestOptionsDict",
+    "InstitutionsSearchResponse",
+    "InstitutionsSearchResponseDict",
+    "Investment",
+    "InvestmentAccountSubtype",
+    "InvestmentAccountSubtypeDict",
+    "InvestmentDict",
+    "InvestmentFilter",
+    "InvestmentFilterDict",
+    "InvestmentHoldingsGetRequestOptions",
+    "InvestmentHoldingsGetRequestOptionsDict",
+    "InvestmentTransaction",
+    "InvestmentTransactionDict",
+    "InvestmentsHoldingsGetRequest",
+    "InvestmentsHoldingsGetRequestDict",
+    "InvestmentsHoldingsGetResponse",
+    "InvestmentsHoldingsGetResponseDict",
+    "InvestmentsTransactionsGetRequest",
+    "InvestmentsTransactionsGetRequestDict",
+    "InvestmentsTransactionsGetRequestOptions",
+    "InvestmentsTransactionsGetRequestOptionsDict",
+    "InvestmentsTransactionsGetResponse",
+    "InvestmentsTransactionsGetResponseDict",
+    "InvestmentsTransactionsOverride",
+    "InvestmentsTransactionsOverrideDict",
+    "Item",
+    "ItemAccessTokenInvalidateRequest",
+    "ItemAccessTokenInvalidateRequestDict",
+    "ItemAccessTokenInvalidateResponse",
+    "ItemAccessTokenInvalidateResponseDict",
+    "ItemApplicationListRequest",
+    "ItemApplicationListRequestDict",
+    "ItemApplicationListResponse",
+    "ItemApplicationListResponseDict",
+    "ItemApplicationListUserAuth",
+    "ItemApplicationListUserAuthDict",
+    "ItemApplicationScopesUpdateRequest",
+    "ItemApplicationScopesUpdateRequestDict",
+    "ItemApplicationScopesUpdateResponse",
+    "ItemApplicationScopesUpdateResponseDict",
+    "ItemDict",
+    "ItemErrorWebhook",
+    "ItemErrorWebhookDict",
+    "ItemGetRequest",
+    "ItemGetRequestDict",
+    "ItemGetResponse",
+    "ItemGetResponseDict",
+    "ItemImportRequest",
+    "ItemImportRequestDict",
+    "ItemImportRequestOptions",
+    "ItemImportRequestOptionsDict",
+    "ItemImportRequestUserAuth",
+    "ItemImportRequestUserAuthDict",
+    "ItemImportResponse",
+    "ItemImportResponseDict",
+    "ItemProductReadyWebhook",
+    "ItemProductReadyWebhookDict",
+    "ItemPublicTokenCreateRequest",
+    "ItemPublicTokenCreateRequestDict",
+    "ItemPublicTokenCreateResponse",
+    "ItemPublicTokenCreateResponseDict",
+    "ItemPublicTokenExchangeRequest",
+    "ItemPublicTokenExchangeRequestDict",
+    "ItemPublicTokenExchangeResponse",
+    "ItemPublicTokenExchangeResponseDict",
+    "ItemRemoveRequest",
+    "ItemRemoveRequestDict",
+    "ItemRemoveResponse",
+    "ItemRemoveResponseDict",
+    "ItemStatus",
+    "ItemStatusDict",
+    "ItemStatusInvestments",
+    "ItemStatusInvestmentsDict",
+    "ItemStatusLastWebhook",
+    "ItemStatusLastWebhookDict",
+    "ItemStatusNullable",
+    "ItemStatusNullableDict",
+    "ItemStatusTransactions",
+    "ItemStatusTransactionsDict",
+    "ItemWebhookUpdateRequest",
+    "ItemWebhookUpdateRequestDict",
+    "ItemWebhookUpdateResponse",
+    "ItemWebhookUpdateResponseDict",
+    "JwkpublicKey",
+    "JwkpublicKeyDict",
+    "Jwtheader",
+    "JwtheaderDict",
+    "LiabilitiesDefaultUpdateWebhook",
+    "LiabilitiesDefaultUpdateWebhookDict",
+    "LiabilitiesGetRequest",
+    "LiabilitiesGetRequestDict",
+    "LiabilitiesGetRequestOptions",
+    "LiabilitiesGetRequestOptionsDict",
+    "LiabilitiesGetResponse",
+    "LiabilitiesGetResponseDict",
+    "LiabilitiesObject",
+    "LiabilitiesObjectDict",
+    "LiabilityOverride",
+    "LiabilityOverrideDict",
+    "LinkTokenAccountFilters",
+    "LinkTokenAccountFiltersDict",
+    "LinkTokenCreateRequest",
+    "LinkTokenCreateRequestAccountSubtypes",
+    "LinkTokenCreateRequestAccountSubtypesDict",
+    "LinkTokenCreateRequestAuth",
+    "LinkTokenCreateRequestAuthDict",
+    "LinkTokenCreateRequestDepositSwitch",
+    "LinkTokenCreateRequestDepositSwitchDict",
+    "LinkTokenCreateRequestDict",
+    "LinkTokenCreateRequestIncomeVerification",
+    "LinkTokenCreateRequestIncomeVerificationDict",
+    "LinkTokenCreateRequestPaymentInitiation",
+    "LinkTokenCreateRequestPaymentInitiationDict",
+    "LinkTokenCreateRequestUpdate",
+    "LinkTokenCreateRequestUpdateDict",
+    "LinkTokenCreateRequestUser",
+    "LinkTokenCreateRequestUserDict",
+    "LinkTokenCreateResponse",
+    "LinkTokenCreateResponseDict",
+    "LinkTokenEuconfig",
+    "LinkTokenEuconfigDict",
+    "LinkTokenGetMetadataResponse",
+    "LinkTokenGetMetadataResponseDict",
+    "LinkTokenGetRequest",
+    "LinkTokenGetRequestDict",
+    "LinkTokenGetResponse",
+    "LinkTokenGetResponseDict",
+    "Loan",
+    "LoanAccount",
+    "LoanAccountDict",
+    "LoanDict",
+    "LoanFilter",
+    "LoanFilterDict",
+    "Meta",
+    "MetaDict",
+    "Mfa",
+    "MfaDict",
+    "MortgageInterestRate",
+    "MortgageInterestRateDict",
+    "MortgageLiability",
+    "MortgageLiabilityDict",
+    "MortgagePropertyAddress",
+    "MortgagePropertyAddressDict",
+    "NetPay",
+    "NetPayDict",
+    "NewAccountsAvailableWebhook",
+    "NewAccountsAvailableWebhookDict",
+    "Numbers",
+    "NumbersAch",
+    "NumbersAchDict",
+    "NumbersAchnullable",
+    "NumbersAchnullableDict",
+    "NumbersBacs",
+    "NumbersBacsDict",
+    "NumbersBacsnullable",
+    "NumbersBacsnullableDict",
+    "NumbersDict",
+    "NumbersEft",
+    "NumbersEftDict",
+    "NumbersEftnullable",
+    "NumbersEftnullableDict",
+    "NumbersInternational",
+    "NumbersInternationalDict",
+    "NumbersInternationalNullable",
+    "NumbersInternationalNullableDict",
+    "OverrideAccounts",
+    "OverrideAccountsDict",
+    "Owner",
+    "OwnerDict",
+    "OwnerOverride",
+    "OwnerOverrideDict",
+    "Pay",
+    "PayDict",
+    "PayFrequency",
+    "PayFrequencyDict",
+    "PayPeriodDetails",
+    "PayPeriodDetailsDict",
+    "PaymentAmount",
+    "PaymentAmountDict",
+    "PaymentInitiationAddress",
+    "PaymentInitiationAddressDict",
+    "PaymentInitiationMetadata",
+    "PaymentInitiationMetadataDict",
+    "PaymentInitiationOptionalRestrictionBacs",
+    "PaymentInitiationOptionalRestrictionBacsDict",
+    "PaymentInitiationPayment",
+    "PaymentInitiationPaymentCreateRequest",
+    "PaymentInitiationPaymentCreateRequestDict",
+    "PaymentInitiationPaymentCreateResponse",
+    "PaymentInitiationPaymentCreateResponseDict",
+    "PaymentInitiationPaymentDict",
+    "PaymentInitiationPaymentGetRequest",
+    "PaymentInitiationPaymentGetRequestDict",
+    "PaymentInitiationPaymentGetResponse",
+    "PaymentInitiationPaymentGetResponseDict",
+    "PaymentInitiationPaymentListRequest",
+    "PaymentInitiationPaymentListRequestDict",
+    "PaymentInitiationPaymentListResponse",
+    "PaymentInitiationPaymentListResponseDict",
+    "PaymentInitiationPaymentReverseRequest",
+    "PaymentInitiationPaymentReverseRequestDict",
+    "PaymentInitiationPaymentReverseResponse",
+    "PaymentInitiationPaymentReverseResponseDict",
+    "PaymentInitiationPaymentTokenCreateRequest",
+    "PaymentInitiationPaymentTokenCreateRequestDict",
+    "PaymentInitiationPaymentTokenCreateResponse",
+    "PaymentInitiationPaymentTokenCreateResponseDict",
+    "PaymentInitiationRecipient",
+    "PaymentInitiationRecipientCreateRequest",
+    "PaymentInitiationRecipientCreateRequestDict",
+    "PaymentInitiationRecipientCreateResponse",
+    "PaymentInitiationRecipientCreateResponseDict",
+    "PaymentInitiationRecipientDict",
+    "PaymentInitiationRecipientGetRequest",
+    "PaymentInitiationRecipientGetRequestDict",
+    "PaymentInitiationRecipientGetResponse",
+    "PaymentInitiationRecipientGetResponseDict",
+    "PaymentInitiationRecipientListRequest",
+    "PaymentInitiationRecipientListRequestDict",
+    "PaymentInitiationRecipientListResponse",
+    "PaymentInitiationRecipientListResponseDict",
+    "PaymentInitiationRefund",
+    "PaymentInitiationRefundDict",
+    "PaymentInitiationStandingOrderMetadata",
+    "PaymentInitiationStandingOrderMetadataDict",
+    "PaymentMeta",
+    "PaymentMetaDict",
+    "PaymentOptions",
+    "PaymentOptionsDict",
+    "PaymentStatusUpdateWebhook",
+    "PaymentStatusUpdateWebhookDict",
+    "Paystub",
+    "PaystubDeduction",
+    "PaystubDeductionDict",
+    "PaystubDetails",
+    "PaystubDetailsDict",
+    "PaystubDict",
+    "PaystubOverride",
+    "PaystubOverrideDict",
+    "PaystubYtddetails",
+    "PaystubYtddetailsDict",
+    "PendingExpirationWebhook",
+    "PendingExpirationWebhookDict",
+    "PersonalFinanceCategory",
+    "PersonalFinanceCategory2",
+    "PersonalFinanceCategory2Dict",
+    "PersonalFinanceCategoryDict",
+    "PhoneNumber",
+    "PhoneNumberDict",
+    "ProcessorApexProcessorTokenCreateRequest",
+    "ProcessorApexProcessorTokenCreateRequestDict",
+    "ProcessorAuthGetRequest",
+    "ProcessorAuthGetRequestDict",
+    "ProcessorAuthGetResponse",
+    "ProcessorAuthGetResponseDict",
+    "ProcessorBalanceGetRequest",
+    "ProcessorBalanceGetRequestDict",
+    "ProcessorBalanceGetRequestOptions",
+    "ProcessorBalanceGetRequestOptionsDict",
+    "ProcessorBalanceGetResponse",
+    "ProcessorBalanceGetResponseDict",
+    "ProcessorBankTransferCreateRequest",
+    "ProcessorBankTransferCreateRequestDict",
+    "ProcessorBankTransferCreateResponse",
+    "ProcessorBankTransferCreateResponseDict",
+    "ProcessorIdentityGetRequest",
+    "ProcessorIdentityGetRequestDict",
+    "ProcessorIdentityGetResponse",
+    "ProcessorIdentityGetResponseDict",
+    "ProcessorNumber",
+    "ProcessorNumberDict",
+    "ProcessorStripeBankAccountTokenCreateRequest",
+    "ProcessorStripeBankAccountTokenCreateRequestDict",
+    "ProcessorStripeBankAccountTokenCreateResponse",
+    "ProcessorStripeBankAccountTokenCreateResponseDict",
+    "ProcessorTokenCreateRequest",
+    "ProcessorTokenCreateRequestDict",
+    "ProcessorTokenCreateResponse",
+    "ProcessorTokenCreateResponseDict",
+    "ProductAccess",
+    "ProductAccessDict",
+    "ProductStatus",
+    "ProductStatusDict",
+    "ProjectedIncomeSummaryFieldNumber",
+    "ProjectedIncomeSummaryFieldNumberDict",
+    "Pslfstatus",
+    "PslfstatusDict",
+    "RecaptchaRequiredError",
+    "RecaptchaRequiredErrorDict",
+    "RecipientBacs",
+    "RecipientBacsDict",
+    "RecipientBacsnullable",
+    "RecipientBacsnullableDict",
+    "RequestedScopes",
+    "RequestedScopesDict",
+    "SandboxBankTransferFireWebhookRequest",
+    "SandboxBankTransferFireWebhookRequestDict",
+    "SandboxBankTransferFireWebhookResponse",
+    "SandboxBankTransferFireWebhookResponseDict",
+    "SandboxBankTransferSimulateRequest",
+    "SandboxBankTransferSimulateRequestDict",
+    "SandboxBankTransferSimulateResponse",
+    "SandboxBankTransferSimulateResponseDict",
+    "SandboxIncomeFireWebhookRequest",
+    "SandboxIncomeFireWebhookRequestDict",
+    "SandboxIncomeFireWebhookResponse",
+    "SandboxIncomeFireWebhookResponseDict",
+    "SandboxItemFireWebhookRequest",
+    "SandboxItemFireWebhookRequestDict",
+    "SandboxItemFireWebhookResponse",
+    "SandboxItemFireWebhookResponseDict",
+    "SandboxItemResetLoginRequest",
+    "SandboxItemResetLoginRequestDict",
+    "SandboxItemResetLoginResponse",
+    "SandboxItemResetLoginResponseDict",
+    "SandboxItemSetVerificationStatusRequest",
+    "SandboxItemSetVerificationStatusRequestDict",
+    "SandboxItemSetVerificationStatusResponse",
+    "SandboxItemSetVerificationStatusResponseDict",
+    "SandboxOauthSelectAccountsRequest",
+    "SandboxOauthSelectAccountsRequestDict",
+    "SandboxProcessorTokenCreateRequest",
+    "SandboxProcessorTokenCreateRequestDict",
+    "SandboxProcessorTokenCreateRequestOptions",
+    "SandboxProcessorTokenCreateRequestOptionsDict",
+    "SandboxProcessorTokenCreateResponse",
+    "SandboxProcessorTokenCreateResponseDict",
+    "SandboxPublicTokenCreateRequest",
+    "SandboxPublicTokenCreateRequestDict",
+    "SandboxPublicTokenCreateRequestOptions",
+    "SandboxPublicTokenCreateRequestOptionsDict",
+    "SandboxPublicTokenCreateRequestOptionsTransactions",
+    "SandboxPublicTokenCreateRequestOptionsTransactionsDict",
+    "SandboxPublicTokenCreateResponse",
+    "SandboxPublicTokenCreateResponseDict",
+    "SandboxTransferSimulateRequest",
+    "SandboxTransferSimulateRequestDict",
+    "SandboxTransferSimulateResponse",
+    "SandboxTransferSimulateResponseDict",
+    "Scopes",
+    "ScopesDict",
+    "ScopesNullable",
+    "ScopesNullableDict",
+    "Security",
+    "SecurityDict",
+    "SecurityOverride",
+    "SecurityOverrideDict",
+    "SellType",
+    "SellTypeDict",
+    "SenderBacsnullable",
+    "SenderBacsnullableDict",
+    "ServicerAddressData",
+    "ServicerAddressDataDict",
+    "SignalDecisionReportRequest",
+    "SignalDecisionReportRequestDict",
+    "SignalDecisionReportResponse",
+    "SignalDecisionReportResponseDict",
+    "SignalEvaluateCoreAttributes",
+    "SignalEvaluateCoreAttributesDict",
+    "SignalEvaluateDevice",
+    "SignalEvaluateDeviceDict",
+    "SignalEvaluateRequest",
+    "SignalEvaluateRequestDict",
+    "SignalEvaluateResponse",
+    "SignalEvaluateResponseDict",
+    "SignalEvaluateScores",
+    "SignalEvaluateScoresDict",
+    "SignalPersonName",
+    "SignalPersonNameDict",
+    "SignalReturnReportRequest",
+    "SignalReturnReportRequestDict",
+    "SignalReturnReportResponse",
+    "SignalReturnReportResponseDict",
+    "SignalUser",
+    "SignalUserDict",
+    "StandaloneAccountType",
+    "StandaloneAccountTypeDict",
+    "StandaloneCurrencyCodeList",
+    "StandaloneCurrencyCodeListDict",
+    "StandaloneInvestmentTransactionType",
+    "StandaloneInvestmentTransactionTypeDict",
+    "StatusBreakdown",
+    "StatusBreakdownDict",
+    "StudentLoan",
+    "StudentLoanDict",
+    "StudentLoanRepaymentModel",
+    "StudentLoanRepaymentModelDict",
+    "StudentLoanStatus",
+    "StudentLoanStatusDict",
+    "StudentRepaymentPlan",
+    "StudentRepaymentPlanDict",
+    "Taxform",
+    "TaxformDict",
+    "TaxpayerId",
+    "TaxpayerIdDict",
+    "Total",
+    "TotalDict",
+    "Transaction",
+    "TransactionBase",
+    "TransactionBaseDict",
+    "TransactionData",
+    "TransactionDataDict",
+    "TransactionDict",
+    "TransactionLocation",
+    "TransactionLocationDict",
+    "TransactionOverride",
+    "TransactionOverrideDict",
+    "TransactionsGetRequest",
+    "TransactionsGetRequestDict",
+    "TransactionsGetRequestOptions",
+    "TransactionsGetRequestOptionsDict",
+    "TransactionsGetResponse",
+    "TransactionsGetResponseDict",
+    "TransactionsRefreshRequest",
+    "TransactionsRefreshRequestDict",
+    "TransactionsRefreshResponse",
+    "TransactionsRefreshResponseDict",
+    "TransactionsRemovedWebhook",
+    "TransactionsRemovedWebhookDict",
+    "TransactionsUpdateInvestmentsWebhook",
+    "TransactionsUpdateInvestmentsWebhookDict",
+    "Transfer",
+    "TransferAuthorization",
+    "TransferAuthorizationCreateRequest",
+    "TransferAuthorizationCreateRequestDict",
+    "TransferAuthorizationCreateResponse",
+    "TransferAuthorizationCreateResponseDict",
+    "TransferAuthorizationDecisionRationale",
+    "TransferAuthorizationDecisionRationaleDict",
+    "TransferAuthorizationDevice",
+    "TransferAuthorizationDeviceDict",
+    "TransferAuthorizationDict",
+    "TransferAuthorizationProposedTransfer",
+    "TransferAuthorizationProposedTransferDict",
+    "TransferCancelRequest",
+    "TransferCancelRequestDict",
+    "TransferCancelResponse",
+    "TransferCancelResponseDict",
+    "TransferCreateRequest",
+    "TransferCreateRequestDict",
+    "TransferCreateResponse",
+    "TransferCreateResponseDict",
+    "TransferDict",
+    "TransferEvent",
+    "TransferEventDict",
+    "TransferEventListRequest",
+    "TransferEventListRequestDict",
+    "TransferEventListResponse",
+    "TransferEventListResponseDict",
+    "TransferEventSyncRequest",
+    "TransferEventSyncRequestDict",
+    "TransferEventSyncResponse",
+    "TransferEventSyncResponseDict",
+    "TransferFailure",
+    "TransferFailureDict",
+    "TransferGetRequest",
+    "TransferGetRequestDict",
+    "TransferGetResponse",
+    "TransferGetResponseDict",
+    "TransferListRequest",
+    "TransferListRequestDict",
+    "TransferListResponse",
+    "TransferListResponseDict",
+    "TransferType",
+    "TransferTypeDict",
+    "TransferUserAddressInRequest",
+    "TransferUserAddressInRequestDict",
+    "TransferUserAddressInResponse",
+    "TransferUserAddressInResponseDict",
+    "TransferUserInRequest",
+    "TransferUserInRequestDict",
+    "TransferUserInResponse",
+    "TransferUserInResponseDict",
+    "UnofficialCurrencyCodeList",
+    "UnofficialCurrencyCodeListDict",
+    "UserCustomPassword",
+    "UserCustomPasswordDict",
+    "UserPermissionRevokedWebhook",
+    "UserPermissionRevokedWebhookDict",
+    "VerificationExpiredWebhook",
+    "VerificationExpiredWebhookDict",
+    "W2",
+    "W2Box12",
+    "W2Box12Dict",
+    "W2Dict",
+    "W2StateAndLocalWages",
+    "W2StateAndLocalWagesDict",
+    "WarningModel",
+    "WarningModelDict",
+    "WebhookUpdateAcknowledgedWebhook",
+    "WebhookUpdateAcknowledgedWebhookDict",
+    "WebhookVerificationKeyGetRequest",
+    "WebhookVerificationKeyGetRequestDict",
+    "WebhookVerificationKeyGetResponse",
+    "WebhookVerificationKeyGetResponseDict",
+    "YtdgrossIncomeSummaryFieldNumber",
+    "YtdgrossIncomeSummaryFieldNumberDict",
+    "YtdnetIncomeSummaryFieldNumber",
+    "YtdnetIncomeSummaryFieldNumberDict",
+]

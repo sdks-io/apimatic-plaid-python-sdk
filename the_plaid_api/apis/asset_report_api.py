@@ -1,0 +1,1208 @@
+from __future__ import annotations
+
+from uuid import UUID, uuid4
+
+from ..auth import AsyncAuthSchemes, AuthSchemes
+from ..core import (
+    AllSchemes,
+    ApiResult,
+    AsyncAllSchemes,
+    AsyncRawClient,
+    RawClient,
+    RawError,
+    RequestOptionsOrDict,
+    SecuredRawResponse,
+    async_empty_response,
+    async_json_decoder,
+    empty_response,
+    json_body,
+    json_decoder,
+    param,
+    raw_error_response,
+)
+from ..models.asset_report_audit_copy_create_request import (
+    AssetReportAuditCopyCreateRequest,
+    AssetReportAuditCopyCreateRequestDict,
+)
+from ..models.asset_report_audit_copy_create_response import AssetReportAuditCopyCreateResponse
+from ..models.asset_report_audit_copy_get_request import (
+    AssetReportAuditCopyGetRequest,
+    AssetReportAuditCopyGetRequestDict,
+)
+from ..models.asset_report_audit_copy_remove_request import (
+    AssetReportAuditCopyRemoveRequest,
+    AssetReportAuditCopyRemoveRequestDict,
+)
+from ..models.asset_report_audit_copy_remove_response import AssetReportAuditCopyRemoveResponse
+from ..models.asset_report_create_request import AssetReportCreateRequest, AssetReportCreateRequestDict
+from ..models.asset_report_create_response import AssetReportCreateResponse
+from ..models.asset_report_filter_request import AssetReportFilterRequest, AssetReportFilterRequestDict
+from ..models.asset_report_filter_response import AssetReportFilterResponse
+from ..models.asset_report_get_request import AssetReportGetRequest, AssetReportGetRequestDict
+from ..models.asset_report_get_response import AssetReportGetResponse
+from ..models.asset_report_pdfget_request import AssetReportPdfgetRequest, AssetReportPdfgetRequestDict
+from ..models.asset_report_refresh_request import AssetReportRefreshRequest, AssetReportRefreshRequestDict
+from ..models.asset_report_refresh_response import AssetReportRefreshResponse
+from ..models.asset_report_remove_request import AssetReportRemoveRequest, AssetReportRemoveRequestDict
+from ..models.asset_report_remove_response import AssetReportRemoveResponse
+from ..server.server import Server
+
+
+class AssetReportApi:
+    def __init__(self, client: RawClient, server: Server, auth: AuthSchemes) -> None:
+        self._with_raw_response = AssetReportApiWithRawResponse(client, server, auth)
+
+    def asset_report_audit_copy_create(
+        self,
+        body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportAuditCopyCreateResponse:
+        """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
+        For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day
+        1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
+
+        To grant access to an Audit Copy, use the ``/asset_report/audit_copy/create`` endpoint to create an
+        ``audit_copy_token`` and then pass that token to the third party who needs access. Each third party has its own
+        ``auditor_id``, for example ``fannie_mae``. You’ll need to create a separate Audit Copy for each third party to
+        whom you want to grant access to the Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_audit_copy_create(body, request_options=request_options).unwrap()
+
+    def asset_report_audit_copy_get(
+        self,
+        body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportGetResponse:
+        """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
+        via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
+        provide the ``audit_copy_token`` to the auditor. This token can then be used to call
+        ``/asset_report/audit_copy/create``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_audit_copy_get(body, request_options=request_options).unwrap()
+
+    def asset_report_audit_copy_remove(
+        self,
+        body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportAuditCopyRemoveResponse:
+        """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
+        invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
+        token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset
+        Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given
+        Audit Copy.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_audit_copy_remove(body, request_options=request_options).unwrap()
+
+    def asset_report_create(
+        self,
+        body: AssetReportCreateRequest | AssetReportCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportCreateResponse:
+        """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
+        retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
+        ``/asset_report/pdf/get`` endpoints.
+
+        The Asset Report takes some time to be created and is not available immediately after calling
+        ``/asset_report/create``. When the Asset Report is ready to be retrieved using ``/asset_report/get`` or
+        ``/asset_report/pdf/get``, Plaid will fire a ``PRODUCT_READY`` webhook. For full details of the webhook schema,
+        see `Asset Report webhooks <https://plaid.com/docs/api/webhooks/#Assets-webhooks>`__.
+
+        The ``/asset_report/create`` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable.
+        To get an updated Asset Report, use the ``/asset_report/refresh`` endpoint.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_create(body, request_options=request_options).unwrap()
+
+    def asset_report_filter(
+        self,
+        body: AssetReportFilterRequest | AssetReportFilterRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportFilterResponse:
+        """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
+        the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
+        relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always
+        exclude certain account types or subtypes, which you can identify by using the ``/accounts/get`` endpoint. To
+        narrow an Asset Report to only a subset of accounts, use the ``/asset_report/filter`` endpoint.
+
+        To exclude certain Accounts from an Asset Report, first use the ``/asset_report/create`` endpoint to create the
+        report, then send the ``asset_report_token`` along with a list of ``account_ids`` to exclude to the
+        ``/asset_report/filter`` endpoint, to create a new Asset Report which contains only a subset of the original
+        Asset Report's data.
+
+        Because Asset Reports are immutable, calling ``/asset_report/filter`` does not alter the original Asset Report
+        in any way; rather, ``/asset_report/filter`` creates a new Asset Report with a new token and id. Asset Reports
+        created via ``/asset_report/filter`` do not contain new Asset data, and are not billed.
+
+        Plaid will fire a https://plaid.com/docs/api/webhooks webhook once generation of the filtered Asset Report has
+        completed.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_filter(body, request_options=request_options).unwrap()
+
+    def asset_report_get(
+        self,
+        body: AssetReportGetRequest | AssetReportGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportGetResponse:
+        """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
+        ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
+        Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook to
+        fire, indicating that the Report is ready to be retrieved.
+
+        By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and
+        categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights
+        like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with
+        Insights provides transaction category, location, and merchant information in addition to the transaction
+        strings provided in a standard Asset Report.
+
+        To retrieve an Asset Report with Insights, call the ``/asset_report/get`` endpoint with ``include_insights`` set
+        to ``true``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_get(body, request_options=request_options).unwrap()
+
+    def asset_report_pdf_get(
+        self,
+        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> None:
+        """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
+        ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
+        Asset Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook
+        to fire, indicating that the Report is ready to be retrieved.
+
+        The response to ``/asset_report/pdf/get`` is the PDF binary data. The ``request_id`` is returned in the
+        ``Plaid-Request-ID`` header.
+
+        `View a sample PDF Asset Report <https://plaid.com/documents/sample-asset-report.pdf>`__.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            A PDF of the Asset Report
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_pdf_get(body, request_options=request_options).unwrap()
+
+    def asset_report_refresh(
+        self,
+        body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportRefreshResponse:
+        """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
+        created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
+        old one, but with the most recent data available.
+
+        The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by
+        any call to ``/asset_report/filter``. By default, the new Asset Report will also use the same parameters you
+        submitted with your original ``/asset_report/create`` request, but the original ``days_requested`` value and the
+        values of any parameters in the ``options`` object can be overridden with new values. To change these arguments,
+        simply supply new values for them in your request to ``/asset_report/refresh``. Submit an empty string ("") for
+        any previously-populated fields you would like set as empty.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_refresh(body, request_options=request_options).unwrap()
+
+    def asset_report_remove(
+        self,
+        body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportRemoveResponse:
+        """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
+        create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
+        already created, which will remain accessible until you remove them specifically.
+
+        The ``/asset_report/remove`` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates
+        its ``asset_report_token``, meaning you will no longer be able to use it to access Report data or create new
+        Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any
+        ``audit_copy_tokens`` associated with the Asset Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return self._with_raw_response.asset_report_remove(body, request_options=request_options).unwrap()
+
+    @property
+    def with_raw_response(self) -> AssetReportApiWithRawResponse:
+        return self._with_raw_response
+
+
+class AsyncAssetReportApi:
+    def __init__(self, client: AsyncRawClient, server: Server, auth: AsyncAuthSchemes) -> None:
+        self._with_raw_response = AsyncAssetReportApiWithRawResponse(client, server, auth)
+
+    async def asset_report_audit_copy_create(
+        self,
+        body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportAuditCopyCreateResponse:
+        """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
+        For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day
+        1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
+
+        To grant access to an Audit Copy, use the ``/asset_report/audit_copy/create`` endpoint to create an
+        ``audit_copy_token`` and then pass that token to the third party who needs access. Each third party has its own
+        ``auditor_id``, for example ``fannie_mae``. You’ll need to create a separate Audit Copy for each third party to
+        whom you want to grant access to the Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (
+            await self._with_raw_response.asset_report_audit_copy_create(body, request_options=request_options)
+        ).unwrap()
+
+    async def asset_report_audit_copy_get(
+        self,
+        body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportGetResponse:
+        """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
+        via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
+        provide the ``audit_copy_token`` to the auditor. This token can then be used to call
+        ``/asset_report/audit_copy/create``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (
+            await self._with_raw_response.asset_report_audit_copy_get(body, request_options=request_options)
+        ).unwrap()
+
+    async def asset_report_audit_copy_remove(
+        self,
+        body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportAuditCopyRemoveResponse:
+        """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
+        invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
+        token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset
+        Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given
+        Audit Copy.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (
+            await self._with_raw_response.asset_report_audit_copy_remove(body, request_options=request_options)
+        ).unwrap()
+
+    async def asset_report_create(
+        self,
+        body: AssetReportCreateRequest | AssetReportCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportCreateResponse:
+        """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
+        retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
+        ``/asset_report/pdf/get`` endpoints.
+
+        The Asset Report takes some time to be created and is not available immediately after calling
+        ``/asset_report/create``. When the Asset Report is ready to be retrieved using ``/asset_report/get`` or
+        ``/asset_report/pdf/get``, Plaid will fire a ``PRODUCT_READY`` webhook. For full details of the webhook schema,
+        see `Asset Report webhooks <https://plaid.com/docs/api/webhooks/#Assets-webhooks>`__.
+
+        The ``/asset_report/create`` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable.
+        To get an updated Asset Report, use the ``/asset_report/refresh`` endpoint.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_create(body, request_options=request_options)).unwrap()
+
+    async def asset_report_filter(
+        self,
+        body: AssetReportFilterRequest | AssetReportFilterRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportFilterResponse:
+        """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
+        the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
+        relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always
+        exclude certain account types or subtypes, which you can identify by using the ``/accounts/get`` endpoint. To
+        narrow an Asset Report to only a subset of accounts, use the ``/asset_report/filter`` endpoint.
+
+        To exclude certain Accounts from an Asset Report, first use the ``/asset_report/create`` endpoint to create the
+        report, then send the ``asset_report_token`` along with a list of ``account_ids`` to exclude to the
+        ``/asset_report/filter`` endpoint, to create a new Asset Report which contains only a subset of the original
+        Asset Report's data.
+
+        Because Asset Reports are immutable, calling ``/asset_report/filter`` does not alter the original Asset Report
+        in any way; rather, ``/asset_report/filter`` creates a new Asset Report with a new token and id. Asset Reports
+        created via ``/asset_report/filter`` do not contain new Asset data, and are not billed.
+
+        Plaid will fire a https://plaid.com/docs/api/webhooks webhook once generation of the filtered Asset Report has
+        completed.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_filter(body, request_options=request_options)).unwrap()
+
+    async def asset_report_get(
+        self,
+        body: AssetReportGetRequest | AssetReportGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportGetResponse:
+        """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
+        ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
+        Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook to
+        fire, indicating that the Report is ready to be retrieved.
+
+        By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and
+        categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights
+        like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with
+        Insights provides transaction category, location, and merchant information in addition to the transaction
+        strings provided in a standard Asset Report.
+
+        To retrieve an Asset Report with Insights, call the ``/asset_report/get`` endpoint with ``include_insights`` set
+        to ``true``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_get(body, request_options=request_options)).unwrap()
+
+    async def asset_report_pdf_get(
+        self,
+        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> None:
+        """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
+        ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
+        Asset Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook
+        to fire, indicating that the Report is ready to be retrieved.
+
+        The response to ``/asset_report/pdf/get`` is the PDF binary data. The ``request_id`` is returned in the
+        ``Plaid-Request-ID`` header.
+
+        `View a sample PDF Asset Report <https://plaid.com/documents/sample-asset-report.pdf>`__.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            A PDF of the Asset Report
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_pdf_get(body, request_options=request_options)).unwrap()
+
+    async def asset_report_refresh(
+        self,
+        body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportRefreshResponse:
+        """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
+        created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
+        old one, but with the most recent data available.
+
+        The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by
+        any call to ``/asset_report/filter``. By default, the new Asset Report will also use the same parameters you
+        submitted with your original ``/asset_report/create`` request, but the original ``days_requested`` value and the
+        values of any parameters in the ``options`` object can be overridden with new values. To change these arguments,
+        simply supply new values for them in your request to ``/asset_report/refresh``. Submit an empty string ("") for
+        any previously-populated fields you would like set as empty.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_refresh(body, request_options=request_options)).unwrap()
+
+    async def asset_report_remove(
+        self,
+        body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> AssetReportRemoveResponse:
+        """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
+        create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
+        already created, which will remain accessible until you remove them specifically.
+
+        The ``/asset_report/remove`` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates
+        its ``asset_report_token``, meaning you will no longer be able to use it to access Report data or create new
+        Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any
+        ``audit_copy_tokens`` associated with the Asset Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            OK
+
+        Raises:
+            ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
+        return (await self._with_raw_response.asset_report_remove(body, request_options=request_options)).unwrap()
+
+    @property
+    def with_raw_response(self) -> AsyncAssetReportApiWithRawResponse:
+        return self._with_raw_response
+
+
+class AssetReportApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
+    def asset_report_audit_copy_create(
+        self,
+        body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportAuditCopyCreateResponse, RawError]:
+        """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
+        For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day
+        1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
+
+        To grant access to an Audit Copy, use the ``/asset_report/audit_copy/create`` endpoint to create an
+        ``audit_copy_token`` and then pass that token to the third party who needs access. Each third party has its own
+        ``auditor_id``, for example ``fannie_mae``. You’ll need to create a separate Audit Copy for each third party to
+        whom you want to grant access to the Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/create"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportAuditCopyCreateResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_audit_copy_get(
+        self,
+        body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportGetResponse, RawError]:
+        """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
+        via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
+        provide the ``audit_copy_token`` to the auditor. This token can then be used to call
+        ``/asset_report/audit_copy/create``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportGetResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_audit_copy_remove(
+        self,
+        body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportAuditCopyRemoveResponse, RawError]:
+        """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
+        invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
+        token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset
+        Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given
+        Audit Copy.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/remove"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportAuditCopyRemoveResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_create(
+        self,
+        body: AssetReportCreateRequest | AssetReportCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportCreateResponse, RawError]:
+        """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
+        retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
+        ``/asset_report/pdf/get`` endpoints.
+
+        The Asset Report takes some time to be created and is not available immediately after calling
+        ``/asset_report/create``. When the Asset Report is ready to be retrieved using ``/asset_report/get`` or
+        ``/asset_report/pdf/get``, Plaid will fire a ``PRODUCT_READY`` webhook. For full details of the webhook schema,
+        see `Asset Report webhooks <https://plaid.com/docs/api/webhooks/#Assets-webhooks>`__.
+
+        The ``/asset_report/create`` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable.
+        To get an updated Asset Report, use the ``/asset_report/refresh`` endpoint.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/create"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportCreateRequest | AssetReportCreateRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportCreateResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_filter(
+        self,
+        body: AssetReportFilterRequest | AssetReportFilterRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportFilterResponse, RawError]:
+        """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
+        the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
+        relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always
+        exclude certain account types or subtypes, which you can identify by using the ``/accounts/get`` endpoint. To
+        narrow an Asset Report to only a subset of accounts, use the ``/asset_report/filter`` endpoint.
+
+        To exclude certain Accounts from an Asset Report, first use the ``/asset_report/create`` endpoint to create the
+        report, then send the ``asset_report_token`` along with a list of ``account_ids`` to exclude to the
+        ``/asset_report/filter`` endpoint, to create a new Asset Report which contains only a subset of the original
+        Asset Report's data.
+
+        Because Asset Reports are immutable, calling ``/asset_report/filter`` does not alter the original Asset Report
+        in any way; rather, ``/asset_report/filter`` creates a new Asset Report with a new token and id. Asset Reports
+        created via ``/asset_report/filter`` do not contain new Asset data, and are not billed.
+
+        Plaid will fire a https://plaid.com/docs/api/webhooks webhook once generation of the filtered Asset Report has
+        completed.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/filter"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportFilterRequest | AssetReportFilterRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportFilterResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_get(
+        self,
+        body: AssetReportGetRequest | AssetReportGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportGetResponse, RawError]:
+        """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
+        ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
+        Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook to
+        fire, indicating that the Report is ready to be retrieved.
+
+        By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and
+        categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights
+        like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with
+        Insights provides transaction category, location, and merchant information in addition to the transaction
+        strings provided in a standard Asset Report.
+
+        To retrieve an Asset Report with Insights, call the ``/asset_report/get`` endpoint with ``include_insights`` set
+        to ``true``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportGetRequest | AssetReportGetRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportGetResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_pdf_get(
+        self,
+        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[None, RawError]:
+        """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
+        ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
+        Asset Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook
+        to fire, indicating that the Report is ready to be retrieved.
+
+        The response to ``/asset_report/pdf/get`` is the PDF binary data. The ``request_id`` is returned in the
+        ``Plaid-Request-ID`` header.
+
+        `View a sample PDF Asset Report <https://plaid.com/documents/sample-asset-report.pdf>`__.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/pdf/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportPdfgetRequest | AssetReportPdfgetRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=empty_response,
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_refresh(
+        self,
+        body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportRefreshResponse, RawError]:
+        """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
+        created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
+        old one, but with the most recent data available.
+
+        The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by
+        any call to ``/asset_report/filter``. By default, the new Asset Report will also use the same parameters you
+        submitted with your original ``/asset_report/create`` request, but the original ``days_requested`` value and the
+        values of any parameters in the ``options`` object can be overridden with new values. To change these arguments,
+        simply supply new values for them in your request to ``/asset_report/refresh``. Submit an empty string ("") for
+        any previously-populated fields you would like set as empty.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/refresh"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportRefreshRequest | AssetReportRefreshRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportRefreshResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    def asset_report_remove(
+        self,
+        body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportRemoveResponse, RawError]:
+        """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
+        create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
+        already created, which will remain accessible until you remove them specifically.
+
+        The ``/asset_report/remove`` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates
+        its ``asset_report_token``, meaning you will no longer be able to use it to access Report data or create new
+        Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any
+        ``audit_copy_tokens`` associated with the Asset Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/remove"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportRemoveRequest | AssetReportRemoveRequestDict](body),
+            auth_scheme=AllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=json_decoder[AssetReportRemoveResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+
+class AsyncAssetReportApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAuthSchemes]):
+    async def asset_report_audit_copy_create(
+        self,
+        body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportAuditCopyCreateResponse, RawError]:
+        """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
+        For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day
+        1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
+
+        To grant access to an Audit Copy, use the ``/asset_report/audit_copy/create`` endpoint to create an
+        ``audit_copy_token`` and then pass that token to the third party who needs access. Each third party has its own
+        ``auditor_id``, for example ``fannie_mae``. You’ll need to create a separate Audit Copy for each third party to
+        whom you want to grant access to the Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/create"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportAuditCopyCreateResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_audit_copy_get(
+        self,
+        body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportGetResponse, RawError]:
+        """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
+        via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
+        provide the ``audit_copy_token`` to the auditor. This token can then be used to call
+        ``/asset_report/audit_copy/create``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportGetResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_audit_copy_remove(
+        self,
+        body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportAuditCopyRemoveResponse, RawError]:
+        """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
+        invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
+        token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset
+        Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given
+        Audit Copy.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/audit_copy/remove"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportAuditCopyRemoveResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_create(
+        self,
+        body: AssetReportCreateRequest | AssetReportCreateRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportCreateResponse, RawError]:
+        """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
+        retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
+        ``/asset_report/pdf/get`` endpoints.
+
+        The Asset Report takes some time to be created and is not available immediately after calling
+        ``/asset_report/create``. When the Asset Report is ready to be retrieved using ``/asset_report/get`` or
+        ``/asset_report/pdf/get``, Plaid will fire a ``PRODUCT_READY`` webhook. For full details of the webhook schema,
+        see `Asset Report webhooks <https://plaid.com/docs/api/webhooks/#Assets-webhooks>`__.
+
+        The ``/asset_report/create`` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable.
+        To get an updated Asset Report, use the ``/asset_report/refresh`` endpoint.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/create"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportCreateRequest | AssetReportCreateRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportCreateResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_filter(
+        self,
+        body: AssetReportFilterRequest | AssetReportFilterRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportFilterResponse, RawError]:
+        """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
+        the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
+        relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always
+        exclude certain account types or subtypes, which you can identify by using the ``/accounts/get`` endpoint. To
+        narrow an Asset Report to only a subset of accounts, use the ``/asset_report/filter`` endpoint.
+
+        To exclude certain Accounts from an Asset Report, first use the ``/asset_report/create`` endpoint to create the
+        report, then send the ``asset_report_token`` along with a list of ``account_ids`` to exclude to the
+        ``/asset_report/filter`` endpoint, to create a new Asset Report which contains only a subset of the original
+        Asset Report's data.
+
+        Because Asset Reports are immutable, calling ``/asset_report/filter`` does not alter the original Asset Report
+        in any way; rather, ``/asset_report/filter`` creates a new Asset Report with a new token and id. Asset Reports
+        created via ``/asset_report/filter`` do not contain new Asset data, and are not billed.
+
+        Plaid will fire a https://plaid.com/docs/api/webhooks webhook once generation of the filtered Asset Report has
+        completed.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/filter"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportFilterRequest | AssetReportFilterRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportFilterResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_get(
+        self,
+        body: AssetReportGetRequest | AssetReportGetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportGetResponse, RawError]:
+        """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
+        ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
+        Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook to
+        fire, indicating that the Report is ready to be retrieved.
+
+        By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and
+        categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights
+        like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with
+        Insights provides transaction category, location, and merchant information in addition to the transaction
+        strings provided in a standard Asset Report.
+
+        To retrieve an Asset Report with Insights, call the ``/asset_report/get`` endpoint with ``include_insights`` set
+        to ``true``.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportGetRequest | AssetReportGetRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportGetResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_pdf_get(
+        self,
+        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[None, RawError]:
+        """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
+        ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
+        Asset Report using ``/asset_report/filter``) and then wait for the https://plaid.com/docs/api/webhooks webhook
+        to fire, indicating that the Report is ready to be retrieved.
+
+        The response to ``/asset_report/pdf/get`` is the PDF binary data. The ``request_id`` is returned in the
+        ``Plaid-Request-ID`` header.
+
+        `View a sample PDF Asset Report <https://plaid.com/documents/sample-asset-report.pdf>`__.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/pdf/get"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportPdfgetRequest | AssetReportPdfgetRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_empty_response,
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_refresh(
+        self,
+        body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportRefreshResponse, RawError]:
+        """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
+        created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
+        old one, but with the most recent data available.
+
+        The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by
+        any call to ``/asset_report/filter``. By default, the new Asset Report will also use the same parameters you
+        submitted with your original ``/asset_report/create`` request, but the original ``days_requested`` value and the
+        values of any parameters in the ``options`` object can be overridden with new values. To change these arguments,
+        simply supply new values for them in your request to ``/asset_report/refresh``. Submit an empty string ("") for
+        any previously-populated fields you would like set as empty.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/refresh"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportRefreshRequest | AssetReportRefreshRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportRefreshResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )
+
+    async def asset_report_remove(
+        self,
+        body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
+        *,
+        request_options: RequestOptionsOrDict | None = None,
+    ) -> ApiResult[AssetReportRemoveResponse, RawError]:
+        """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
+        create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
+        already created, which will remain accessible until you remove them specifically.
+
+        The ``/asset_report/remove`` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates
+        its ``asset_report_token``, meaning you will no longer be able to use it to access Report data or create new
+        Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any
+        ``audit_copy_tokens`` associated with the Asset Report.
+
+        Args:
+            body: The request body.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
+
+        Returns:
+            An ``ApiResult`` holding the deserialized response or the error body."""
+        return await self._client.execute(
+            http_method="POST",
+            url_template=self._server.default("/asset_report/remove"),
+            headers=[param[UUID]("Idempotency-Key", uuid4())],
+            body=json_body[AssetReportRemoveRequest | AssetReportRemoveRequestDict](body),
+            auth_scheme=AsyncAllSchemes(self._auth.plaid_client_id, self._auth.plaid_secret, self._auth.plaid_version),
+            decoder=async_json_decoder[AssetReportRemoveResponse],
+            error_mapper=raw_error_response,
+            request_options=request_options,
+        )

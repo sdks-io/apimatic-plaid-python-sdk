@@ -1,0 +1,43 @@
+from __future__ import annotations
+
+from typing_extensions import TypedDict
+
+from ..core import SdkBaseModel
+from .account import Account, AccountDict
+from .investment_transaction import InvestmentTransaction, InvestmentTransactionDict
+from .item import Item, ItemDict
+from .security import Security, SecurityDict
+
+
+class InvestmentsTransactionsGetResponse(SdkBaseModel):
+    """InvestmentsTransactionsGetResponse defines the response schema for ``/investments/transactions/get``"""
+
+    item: Item
+    """Metadata about the Item."""
+
+    accounts: list[Account]
+    """The accounts for which transaction history is being fetched."""
+
+    securities: list[Security]
+    """All securities for which there is a corresponding transaction being fetched."""
+
+    investment_transactions: list[InvestmentTransaction]
+    """The transactions being fetched"""
+
+    total_investment_transactions: int
+    """The total number of transactions available within the date range specified. If ``total_investment_transactions``
+    is larger than the size of the ``transactions`` array, more transactions are available and can be fetched via
+    manipulating the ``offset`` parameter.'"""
+
+    request_id: str
+    """A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid
+    identifiers, is case sensitive."""
+
+
+class InvestmentsTransactionsGetResponseDict(TypedDict):
+    item: ItemDict
+    accounts: list[AccountDict]
+    securities: list[SecurityDict]
+    investment_transactions: list[InvestmentTransactionDict]
+    total_investment_transactions: int
+    request_id: str
